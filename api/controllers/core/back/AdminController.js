@@ -193,5 +193,28 @@ module.exports = {
 
     },
 
+    newTemplate: function (req, res) {
+
+
+        console.log('is logged', CoreLoginService.isLogged());
+
+        if (CoreLoginService.isLogged(req, res)) {
+            var result = {};
+
+            result.templateToInclude = 'admin';
+            result.pathToInclude = '../admin';
+
+            return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
+        }
+        else{
+            return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
+
+        }
+
+
+
+
+    },
+
 
 };

@@ -24,6 +24,9 @@ module.exports.routes = {
     // ADMIN
     // old with menu toogle 'GET    /admin'               : 'core/back/AdminController.index',
 
+
+    'GET    /admin/new_template/': 'core/back/AdminController.newTemplate',
+
     'GET    /admin': 'core/back/AdminController.menu',
     '/admin/login': 'core/back/AdminController.login',
     '/admin/logout': 'core/back/AdminController.logout',
