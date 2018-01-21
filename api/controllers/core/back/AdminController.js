@@ -31,14 +31,16 @@ module.exports = {
         }
 
 
-        if ( isLogged )
+        if (isLogged )
         {
-        var result = {};
 
-        result.templateToInclude = 'admin';
-        result.pathToInclude = '../admin';
+            var result = {};
 
-        return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+            result.templateToInclude = 'admin';
+            result.pathToInclude = '../admin';
+
+            return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
+
         }
         else{
             return res.redirect('/admin');

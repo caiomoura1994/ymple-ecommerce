@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
@@ -9,9 +12,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>NeuBoard</title>
+    <title>Ymple</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="/backend/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Fonts  -->
@@ -35,8 +38,8 @@
     <header id="header">
         <!--logo start-->
         <div class="brand">
-            <a href="index.html" class="logo">
-                <span>APP</span>NAME</a>
+            <a href="/admin/new_template/" class="logo">
+                <span></span>YMPLE</a>
         </div>
         <!--logo end-->
         <ul class="nav navbar-nav navbar-left">
@@ -68,12 +71,13 @@
     <aside class="sidebar sidebar-left">
         <div class="sidebar-profile">
             <div class="avatar">
-                <img class="img-circle profile-image" src="/backend/img/profile.jpg" alt="profile">
+                <img class="img-circle profile-image" src="/images/ymple/logo.png" alt="profile">
                 <i class="on border-dark animated bounceIn"></i>
             </div>
             <div class="profile-body dropdown">
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><h4>Example User<span class="caret"></span></h4></a>
-                <small class="title">Front-end Developer</small>
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><h4>
+                    User<span class="caret"></span></h4></a>
+                <small class="title">Administrator</small>
                 <ul class="dropdown-menu animated fadeInRight" role="menu">
                     <li class="profile-progress">
                         <h5>
@@ -120,22 +124,267 @@
                 </li>
                 <li class="nav-dropdown">
                     <a href="#" title="UI Elements">
-                        <i class="fa fa-fw fa-file-text"></i> Pages
+                        <i class="fa fa-fw fa-file-text"></i> Installation
                     </a>
                     <ul class="nav-sub">
                         <li>
-                            <a href="pages-blank.html" title="Buttons">
-                                Blank Page
+                            <a href="/install" title="Buttons">
+                                Install Database
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-shopping-cart"></i> Product
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/product/create" title="Buttons">
+                                New
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/product/list" title="Buttons">
+                                Complete List
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-plus-square"></i> Category
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/category/create" title="Buttons">
+                                New
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/category/list" title="Buttons">
+                                Complete List
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-check-square-o"></i> Module
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/module/list/payment/" title="Buttons">
+                                Payment
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/admin/module/list/deliver/" title="Buttons">
+                                Delivery
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="/admin/module/list/theme/" title="Buttons">
+                                Theme
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#/admin/module/search/" title="Buttons">
+                                Search New Module
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-shopping-cart"></i> Order
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/order/manage" title="Buttons">
+                                Order
                             </a>
                         </li>
                         <li>
-                            <a href="pages-another-blank.html" title="Sliders &amp; Progress">
-                                Another Blank Page
+                            <a href="#" title="Buttons">
+                                Abandoned Checkout
                             </a>
                         </li>
                     </ul>
                 </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-users"></i> Customers
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/customer/list" title="Buttons">
+                                List
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-cog"></i> Notification
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="#/admin/notification/configuration/" title="Buttons">
+                                Configuration
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-area-chart"></i> Statistic
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="#/admin/stat/dashboard" title="Buttons">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#/admin/stat/report" title="Buttons">
+                                Report
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-mobile"></i> Mobile / Api
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/mobile/api_token/" title="Buttons">
+                                Configuration Api / Token
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="#" title="UI Elements">
+                        <i class="fa fa-fw fa-cog"></i> Setting
+                    </a>
+                    <ul class="nav-sub">
+
+                        <li>
+                            <a href="/admin/administrator/edit/" title="Buttons">
+                                Profile
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="#" title="Buttons">
+                                General
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a href="#" title="Buttons">
+                                Payment
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" title="Buttons">
+                                Demo Mode
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" title="Buttons">
+                                Language
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="/admin/new_template/" title="UI Elements">
+                        <i class="fa fa-fw fa-cog"></i> New Template Backend
+                    </a>
+                    <ul class="nav-sub">
+                        <li>
+                            <a href="/admin/mobile/api_token/" title="Buttons">
+                                Configuration Api / Token
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-dropdown">
+                    <a href="/admin/logout" title="UI Elements">
+                        <i class="fa fa-fw fa-sign-out"></i> Logout
+                    </a>
+
+                </li>
+
+
             </ul>
+
+
+            <!--li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-line-chart" aria-hidden="true"></i>
+               &nbsp;&nbsp;Analysis<i class="fa fa-caret-down" aria-hidden="true"></i>
+           </a>
+           <ul class="dropdown-menu dropdown-menu-right">
+               <li><a href="/admin/analysis/traffic">Traffic</a></li>
+               <li><a href="/admin/analysis/search">Search</a></li>
+
+           </ul>
+       </li-->
+            <!--li>
+                <a href="/admin/module"><i class="fa fa-tasks" aria-hidden="true"></i>
+                    &nbsp;Module</a>
+            </li-->
+            <!--li>
+                <a href="/admin/preference"><i class="fa fa-sliders" aria-hidden="true"></i>
+                    </i> &nbsp;Preferences</a>
+            </li-->
         </nav>
     </aside>
     <!--sidebar left end-->
@@ -143,7 +392,7 @@
     <section class="main-content-wrapper">
         <div class="pageheader">
             <h1>Dashboard</h1>
-            <p class="description">Welcome to NEUBOARD Responsive Admin Theme</p>
+            <p class="description">Welcome to Ymple  Admin Board</p>
             <div class="breadcrumb-wrapper hidden-xs">
                 <span class="label">You are here:</span>
                 <ol class="breadcrumb">
@@ -156,7 +405,7 @@
                 <div class="col-md-12 col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-body ng-binding">
-                            You can quickly bootstrap your Web App project here.
+                            Administration Board
                         </div>
                     </div>
                 </div>
