@@ -3,33 +3,25 @@
 </h1>
 
 
-Version 1.2.0 (planned 2018.6)
-
-Version 1.1.0 (planned 2017.12)
-
-Version 1.0.0 (released 2017.6)
-
-Version 0.2.0 (released 2017.4)
-
-Version 0.1.1 (released 2016.11)
-
-
-### [www.ymple.com](https://www.ymple.com/)
+### [Product Page](https://www.ymple.com/)
 
 ### [Demo](http://demo.ymple.com/)
+
+### [Documentation + Database and Table](http://doc.ymple.com/)
+
+### [Screenshot Frontend](https://www.ymple.com/en/screenshot-front/)
+
+### [Screenshot Backend](https://www.ymple.com/en/screenshot-back/)
 
 
 Open Source Ecommerce Open Source Framework for Everyone built with Sails.js (Node.js + MongoDB)
 
-It's intended to be a fully engaged community project, and we're greatly welcoming contributions from the development community.
-
 System Dependencies
 --------
 
-* MongoDB v3.2.6
-* Node.js 4.4.2, 6.9.0, 8.6.0
-* npm v 4.6.1, 5.3.0
-
+* MongoDB
+* Node.js
+* npm v
 
 
 How To Run
@@ -69,24 +61,14 @@ node app.js
      You can loggin with the user:  admin@admin.com and password: admin
 
 
-### [Screenshot](https://www.ymple.com/screenshot-front/)
-
-
-Community
+Community - Contributing
 --------
+
+If you want to contribute / ask question , you can use Gitter link or create one issue in the project
 
 ### [Gitter](https://gitter.im/Ymple/ymple-commerce)
 
 ### [Stackoverflow](https://stackoverflow.com/search?q=ymple+ecommerce)
-
-
-
-Contributing
---------
-
-Ymple Ecommerce is an Open Source project.
-
-If you want to contribute code to Ymple Ecommerce, read the [CONTRIBUTING.md][7] file in this repository or read the [tutorials about contribution][8] on the documentation site.
 
 
 ========
