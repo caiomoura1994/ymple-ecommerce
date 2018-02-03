@@ -66,6 +66,8 @@ Community - Contributing
 
 If you want to contribute / ask question , you can use Gitter link or create one issue in the project
 
+The branch to request PR is:  1.1.0
+
 ### [Gitter](https://gitter.im/Ymple/ymple-commerce)
 
 ### [Stackoverflow](https://stackoverflow.com/search?q=ymple+ecommerce)
