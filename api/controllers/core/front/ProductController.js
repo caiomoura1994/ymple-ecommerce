@@ -83,15 +83,11 @@ module.exports = {
             product_query = ''; //default value, return all the product
         }
 
-        async.waterfall([
-            function GetProductList(next) {
 
-                Product.find({
-                    name: {
-                        'contains': product_query
-                    }
-                }, function (err, products) {
-                    if (err) next(err);
+        CoreReadDbService.getProductList().then(function (products) {
+
+                console.log('return full product list ', products);
+
 
                     // check if the image is available
                     var fs = require('fs');
@@ -124,36 +120,22 @@ module.exports = {
 
                     console.info('productController products', products)
 
-                    return next(null);
-                });
-            },
-
-            function getCategoryList(next) {
 
                 var newIdProduct = CoreReadDbService.getCategoryList().then(function (categoryList) {
 
                     console.log('promise return value categoryList:', categoryList);
                     result.categoryList = categoryList;
-                    return next(null, categoryList);
+
+                    result.query = req.query.name;
+                    result.showSearchMenu = 1;
+
+
+                    return res.view(theme + 'index.ejs', result);
+
                 });
 
-            },
+            });
 
-        ], function (err) {
-            if (err) return res.serverError(err);
-
-            if (req.session.hasOwnProperty('cart')) {
-                result.cart = req.session.cart;
-            }
-            else {
-                result.cart = [];
-            }
-            result.query = req.query.name;
-            result.showSearchMenu = 1;
-
-
-            return res.view(theme + 'index.ejs', result);
-        });
     },
 
     status: function (req, res) {

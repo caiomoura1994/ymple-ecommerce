@@ -108,13 +108,13 @@
                         </td>
 
                         <td>
-                            <a href="/admin/product/preview/<%= product.id %>" class="btn btn-xs btn-default" button-action="edit">PREVIEW</a>
+                            <a href="/admin/product/preview/<%= product.idProduct %>" class="btn btn-xs btn-default" button-action="edit">PREVIEW</a>
                         </td>
                         <td>
-                            <a href="/admin/product/edit/<%= product.id %>" class="btn btn-xs btn-primary" button-action="edit">EDIT</a>
+                            <a href="/admin/product/edit/<%= product.idProduct %>" class="btn btn-xs btn-primary" button-action="edit">EDIT</a>
                         </td>
                         <td>
-                            <a href="/admin/product/delete/<%= product.id %>" class="btn btn-xs btn-danger" button-action="delete">DELETE</a>
+                            <a href="/admin/product/delete/<%= product.idProduct %>" class="btn btn-xs btn-danger" button-action="delete">DELETE</a>
                         </td>
                     </tr>
 
@@ -127,21 +127,6 @@
                     <ul class="pagination">
                         <button><a class="btn btn-sm" href="#/admin/product">&laquo;</a></button>
                             <button><a class="btn btn-sm" href="#/admin/product">&raquo;</a></button>
-
-                        <% if (page == 1 ) { %>
-                        <!--li class="active"><a href="/admin/product?page=<%#= loop.index %>"><%#= loop.index %></a></li>
-
-
-                        <% } else { %>
-
-
-                        <li><a href="/admin/product?page=<%#= loop.index %>"><%#= loop.index %></a></li-->
-
-                        <% } %>
-
-                        <% if (typeof loop == 'object' ) { %>
-                        <a href="/admin/product?page=<%#= loop.index %>">&raquo;</a>
-                        <% } %>
 
                     </ul>
                 </div>

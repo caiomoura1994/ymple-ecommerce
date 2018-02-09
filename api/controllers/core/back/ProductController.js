@@ -34,7 +34,7 @@ module.exports = {
 
                 CoreReadDbService.getNewIdProduct().then(function(idProduct){
 
-                    console.log('promise return value:', idProduct);
+                    console.log('new product id:', idProduct);
 
                     result.idProduct = idProduct;
 
@@ -58,7 +58,29 @@ module.exports = {
     },
 
     preview: function (req, res) {
-        var result = {
+
+
+        var productId = req.params.id;
+
+        console.log('product id : ', productId);
+
+        CoreReadDbService.getProductItem(productId).then(function (data) {
+
+            console.log('return full product preview ', data);
+
+            var result = {};
+
+            result.product = data;
+
+            result.templateToInclude = 'product_preview';
+            result.pathToInclude = '../product/preview.ejs';
+
+            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+        });
+
+
+       /* var result = {
             user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
         };
 
@@ -84,70 +106,22 @@ module.exports = {
                 return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
             }
-        });
+        });*/
     },
 
     list: function (req, res) {
-        var result = {
-            admin: req.session.user
-        };
-        var skip = 0;
-        var page = 1;
 
-        if (req.query.hasOwnProperty('page')) {
-            skip = (req.query.page - 1) * 10;
-            page = req.query.page;
-        }
 
-        var queryOptions = {
-            where: {},
-            skip: skip,
-            limit: 20,
-            sort: 'createdAt DESC'
-        };
+        CoreReadDbService.getProductList().then(function (data) {
 
-        result.page = page;
+            console.log('return full product list ', data);
 
-        async.waterfall([
-            function GetTotalCount(next) {
-                Product.count(function (err, num) {
-                    if (err) return next(err);
 
-                    result.pages = [];
+            var result = {};
 
-                    for (var i = 0, count = parseInt(num / queryOptions.limit); i <= count; i++) {
-                        result.pages.push(i + 1);
-                    }
+            result.products = data;
 
-                    return next(null);
-                });
-            },
 
-            function GetProducts(next) {
-                Product.find(queryOptions, function (err, products) {
-                    if (err) next(err);
-
-                    result.products = products;
-
-                    return next(null);
-                });
-            },
-
-            function GetEditProduct(next) {
-                if (!req.params.hasOwnProperty('id')) {
-                    return next(null);
-                    return;
-                }
-
-                Product.findOne(req.params.id, function (err, product) {
-                    if (err) next(err);
-                    result.edit = product;
-
-                    return next(null);
-                });
-            }
-        ], function (err) {
-            if (err) return res.serverError(err);
             result.templateToInclude = 'product_list';
             result.pathToInclude = '../product/list.ejs';
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);

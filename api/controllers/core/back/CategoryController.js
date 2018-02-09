@@ -39,7 +39,7 @@ module.exports = {
 
         })
     },
-    
+
     /**
      * `CategoryController.create()`
      */
