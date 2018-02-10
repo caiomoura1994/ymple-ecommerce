@@ -388,11 +388,15 @@ module.exports = {
 
                     var col = db.collection(collection);
 
-                    var obj_ids = input.map(function (item) {
+                   /* var obj_ids = input.map(function (item) {
                         return ObjectId(item.id)
+                    });*/
+
+                    var obj_ids = input.map(function (item) {
+                        return item.id
                     });
 
-                    var findQuery = {"_id": {"$in": obj_ids}}
+                    var findQuery = {"idProduct": {"$in": obj_ids}}
 
                     col.find(
                         findQuery
