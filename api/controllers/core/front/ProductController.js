@@ -41,25 +41,23 @@ module.exports = {
             user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
         };
 
-        async.waterfall([
-            function GetProduct(next) {
-                Product.findOne(req.params.id, function (err, product) {
-                    if (err) return res.serverError(err);
-                    if (!product) return res.serverError('NO_PRODUCT_FOUND');
 
-                    // URLIFY
-                    product.description = Urlify(product.description);
+        var productId = req.params.id;
 
-                    result.cart = req.session.cart;
-                    result.product = product;
 
-                    return next(null, result);
-                });
+
+        CoreReadDbService.getProductItem(productId).then(function (data) {
+
+            var result = {};
+
+            if (data){
+            data.description = Urlify(data.description);
             }
-        ], function (err, result) {
-            if (err) res.serverError(err);
+            result.cart = req.session.cart;
+            result.product = data;
 
             return res.view(theme + 'product/single-item.ejs', result);
+
         });
     },
 
