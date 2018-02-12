@@ -20,7 +20,11 @@ module.exports = {
         return res.view('complete.ejs', {failed: true});
     },
     check: function (req, res) {
+
+
         Order.findOne(req.body.merchant_uid, function (err, order) {
+
+
             if (err) return res.serverError(err);
 
             if (!order) {
@@ -39,7 +43,15 @@ module.exports = {
     paid: function (req, res) {
         sails.log('PAID:' + req.body);
 
+
+
+
+
         Order.findOne(req.body.merchant_uid, function (err, order) {
+
+
+
+
             if (err) return res.serverError(err);
 
             if (!order) {
@@ -67,8 +79,10 @@ module.exports = {
 
         async.waterfall([
             function GetOrder(next) {
-                Order.findOne(req.params.id, function (err, order) {
-                    if (err) return next(err);
+
+                var orderId = req.params.id;
+
+                CoreReadDbService.getOrderItem(orderId).then(function (order) {
 
                     if (req.query.hasOwnProperty('type'))
                         order.status = req.query.type;
@@ -98,8 +112,10 @@ module.exports = {
 
         async.waterfall([
             function GetOrder(next) {
-                Order.findOne(req.params.id).populate('owner').exec(function (err, order) {
-                    if (err) return next(err);
+
+                var orderId = req.params.id;
+
+                CoreReadDbService.getOrderItem(orderId).then(function (order) {
 
                     result.order = order;
 
@@ -191,18 +207,21 @@ module.exports = {
 
         }
 
-
         async.waterfall([
             function GetOrder(next) {
-                Order.findOne(req.params.id).populate('owner').exec(function (err, order) {
-                    if (err) return res.serverError(err);
-                    if (order && order.status && order.status === 'PAID') return next('ALREADY_PAID');
 
-                    result.order = order;
+                var orderId = req.params.id;
+
+                CoreReadDbService.getOrderItem(orderId).then(function (data) {
+
+                    if (data && data.status && data.status === 'PAID') return next('ALREADY_PAID');
+
+                    result.order = data;
                     result.amount = 10;
 
                     return next(null);
                 });
+
             },
         ], function (err) {
             if (err) return res.redirect('/order/' + req.params.id + '?error=' + err);

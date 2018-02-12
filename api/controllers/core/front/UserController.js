@@ -136,13 +136,25 @@ module.exports = {
             function GetUser(next) {
 
 
+
+
+
             try {
-            User.findOne({'email': req.body.email}).exec(function (err, user) {
+
+
+                var email = req.body.email;
+
+                CoreReadDbService.getUserItemByEmail(email).then(function (user) {
+
+
+
+
+            //User.findOne({'email': req.body.email}).exec(function (err, user) {
 
 
                 console.log('UserController - login - user', user);
 
-                    if (err) return next(err);
+                  //  if (err) return next(err);
 
                     return next(null, user);
                 });
