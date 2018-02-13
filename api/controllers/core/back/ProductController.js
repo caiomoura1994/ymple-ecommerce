@@ -15,7 +15,7 @@ var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
 var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
 var CoreDeleteDbService = require(pathToService + 'back/CoreDeleteDbService');
 
-var pathTemplateBackCore =  sails.config.globals.templatePathBackCore;
+var pathTemplateBackCore = sails.config.globals.templatePathBackCore;
 
 //module.exports = CoreReadDbService;
 
@@ -30,15 +30,15 @@ module.exports = {
 
         async.waterfall([
 
-            function getNewIdProducT (next) {
+            function getNewIdProducT(next) {
 
-                CoreReadDbService.getNewIdProduct().then(function(idProduct){
+                CoreReadDbService.getNewIdProduct().then(function (idProduct) {
 
                     console.log('new product id:', idProduct);
 
                     result.idProduct = idProduct;
 
-                    CoreReadDbService.getCategoryList().then(function(categoryList){
+                    CoreReadDbService.getCategoryList().then(function (categoryList) {
 
                         console.log('ProductController - categoryList', categoryList);
 
@@ -78,35 +78,6 @@ module.exports = {
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
         });
-
-
-       /* var result = {
-            user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
-        };
-
-        async.waterfall([
-            function GetProduct(next) {
-                Product.findOne(req.params.id, function (err, product) {
-                    if (err) return res.serverError(err);
-                    if (!product) return res.serverError('NO_PRODUCT_FOUND');
-                    // URLIFY
-                    //product.description = Urlify(product.description);
-                    result.cart = req.session.cart;
-                    result.product = product;
-                    return next(null, result);
-                });
-            }
-        ], function (err, result) {
-            if (err) {res.serverError(err);}
-            else {
-
-                result.templateToInclude = 'product_preview';
-                result.pathToInclude = '../product/preview.ejs';
-
-                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-            }
-        });*/
     },
 
     list: function (req, res) {
@@ -116,11 +87,9 @@ module.exports = {
 
             console.log('return full product list ', data);
 
-
             var result = {};
 
             result.products = data;
-
 
             result.templateToInclude = 'product_list';
             result.pathToInclude = '../product/list.ejs';
@@ -131,35 +100,26 @@ module.exports = {
     edit: function (req, res, id) {
 
         var result = {};
-        // we take the id of the product and get all the product details to set the template
-        //     console.info('modification product - req: ', req);
         console.info('modification product id: ', req.params.id);
         console.info(req.params.id.length);
 
         if (req.params.id && (req.params.id.length > 0 )) {
             // we retrieve the product informations
             var productId = req.params.id;
-            var queryOptions = {
-                where: {id: productId},
-                limit: 10,
-                sort: 'createdAt DESC'
-            };
 
-            Product.find(queryOptions, function (err, products) {
-                if (err) next(err);
+            CoreReadDbService.getProductItem(productId).then(function (products) {
 
                 result.product = {};
-                result.product = products[0];
+                result.product = products;
 
-                if (products[0].idProduct){
-                result.idProduct = products[0].idProduct;
+                if (products.idProduct) {
+                    result.idProduct = products.idProduct;
                 }
-                else
-                {
+                else {
                     result.idProduct = 0;
                 }
 
-                CoreReadDbService.getCategoryList().then(function(categoryList){
+                CoreReadDbService.getCategoryList().then(function (categoryList) {
 
                     console.log('ProductController - categoryList', categoryList);
 
@@ -168,7 +128,7 @@ module.exports = {
                     console.info('edit query result', products);
                     console.info('edit - result', result);
                     result.templateToInclude = 'product_edit';
-                    result.pathToInclude  = '../product/edit.ejs';
+                    result.pathToInclude = '../product/edit.ejs';
                     return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
                 })
 
@@ -199,7 +159,6 @@ module.exports = {
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
 
-
         }
         else {
             result.templateToInclude = 'product_list';
@@ -208,13 +167,11 @@ module.exports = {
     },
 
 
-
     delete: function (req, res, id) {  // display the delete page for validation
 
         var result = {};
 
         //console.info('modification product id: ', req.params.id);
-        //console.info(req.params.id.length);
 
         if (req.params.id && (req.params.id.length > 0 )) {
             // we retrieve the product informations
@@ -242,8 +199,6 @@ module.exports = {
 
             CoreInsertDbService.updateProduct(data);
 
-            //CoreInsertDbService.incrementId('product');
-
             var result = {};
 
             result.templateToInclude = 'product_edit_ok';
@@ -251,7 +206,7 @@ module.exports = {
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
-            console.log('productController - productNewValidation - req.body',data );
+            console.log('productController - productNewValidation - req.body', data);
 
         }
         else {
@@ -283,19 +238,19 @@ module.exports = {
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
-            console.log('productController - productNewValidation - req.body',data );
+            console.log('productController - productNewValidation - req.body', data);
 
-           /* Product.create(data, function (err, product) {
-                if (err) {
-                    return res.serverError(err);
-                }
-                else {
+            /* Product.create(data, function (err, product) {
+             if (err) {
+             return res.serverError(err);
+             }
+             else {
 
-                    // once created we increment the id produit in counter table
-                    //return res.ok('create of the product done', req.body);
-                }
-                //return res.redirect('/admin/product');
-            });*/
+             // once created we increment the id produit in counter table
+             //return res.ok('create of the product done', req.body);
+             }
+             //return res.redirect('/admin/product');
+             });*/
         }
         else {
             var result = {};
@@ -305,40 +260,6 @@ module.exports = {
             //return res.ok('missing one parameter');
         }
     },
-
-    previewold: function (req, res) {
-
-        console.log ('[start]: productController - preview ');
-
-        var result = {
-            user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
-        };
-
-        async.waterfall([
-            function GetProduct(next) {
-                Product.findOne(req.params.id, function (err, product) {
-                    if (err) return res.serverError(err);
-                    if (!product) return res.serverError('NO_PRODUCT_FOUND');
-
-                    // URLIFY
-                    product.description = Urlify(product.description);
-
-                    result.cart = req.session.cart;
-                    result.product = product;
-
-                    return next(null, result);
-                });
-            }
-        ], function (err, result) {
-            if (err) {res.serverError(err);}
-            else{
-
-            return res.view(pathTemplateBackCore + 'product/preview.ejs', result);
-            }
-        });
-    },
-
-
 
 };
 

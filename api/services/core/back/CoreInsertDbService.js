@@ -122,6 +122,9 @@ getValueFromArray = function (data, element, type) {
 
         updateProduct: function (data) { // Insert a product in table product
 
+
+            console.log('update product - data', data);
+
             var MongoClient = require('mongodb').MongoClient;
             console.log('InsertDbService - url connexion ', urlConnection);
 
@@ -141,11 +144,13 @@ getValueFromArray = function (data, element, type) {
                 var description = data.description;
                 var name = data.name;
                 var image = [];
+                var idProduct = data.idProduct;
+
                 image[0] = '/images/product/' + idProduct + '.png';
 
                 var dataToInsert = {
                     name: name,
-                    //idProduct: idProduct,
+                    idProduct: parseInt(idProduct),
                     price: price,
                     stock: stock,
                     video: video,
@@ -161,7 +166,7 @@ getValueFromArray = function (data, element, type) {
                     console.log('data', data);
 
                     db.collection('product').update(
-                        {_id: ObjectId(data.id)},
+                        {idProduct: parseInt(data.idProduct)},
                         {$set: dataToInsert},
                         function (err, result) {
 
