@@ -553,6 +553,10 @@ module.exports = {
                         return item.id
                     });
 
+
+                    console.log ('returnItemWithPriceForOrder - obj_ids', obj_ids);
+
+
                     var findQuery = {"idProduct": {"$in": obj_ids}}
 
                     col.find(
