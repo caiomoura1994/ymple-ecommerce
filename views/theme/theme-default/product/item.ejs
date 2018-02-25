@@ -76,7 +76,7 @@
 
     <% products.forEach(function(product, i){ %>
 
-        <div class="col-sm-4 col-md-4" style="display: inline-block;">
+        <div class="col-xs-12 col-sm-6 col-md-4" style="display: inline-block;">
             <div class="ec-box">
                 <div class="ec-box-header"><%= product.name %></div>
 
@@ -89,7 +89,7 @@
 
                     <% }else { %>
 
-                    <img style="height: 200px;width: 250px;" class="img-rounded-ymple" src="/images/ymple/product-example.png">
+                    <img style="max-height: 200px;max-width: 200px" class="img-rounded-ymple" src="/images/ymple/product-example.png">
 
 
                     <% } %>
