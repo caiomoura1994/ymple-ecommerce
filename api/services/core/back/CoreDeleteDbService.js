@@ -41,10 +41,11 @@ getValueFromArray = function (data, element, type) {
                 if (sails.config.demoMode != 1) {
 
                     var collection = db.collection('product');
-                    collection.deleteOne({_id: ObjectId(productId)}, function (err, result) {
+                    //collection.deleteOne({_id: ObjectId(productId)}, function (err, result) {
+                        collection.deleteOne({idProduct: parseInt(productId)}, function (err, result) {
 
                         console.log(err);
-                        console.log('result', result);
+                        console.log('delete product result', result);
                     });
                 }
             });

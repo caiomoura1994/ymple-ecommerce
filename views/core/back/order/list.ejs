@@ -77,22 +77,7 @@
                 <ul class="pagination">
                     <li><a href="/admin/order">&laquo;</a></li>
 
-                    <% pages.forEach(function (index) { %>
 
-                    <% if (typeof loop == 'object' && page == loop.index) { %>
-                    <li class="active"><a href="/admin/order?page=<%= loop.index %>"><%= loop.index %>
-                        </a></li>
-                    <% } else { %>
-                    <li><a href="/admin/order?page=<%#= loop.index %>">
-                            1<%#=  loop.index   %>
-                        </a></li>
-                    <% } %>
-
-                    <% if (typeof loop == 'object' && loop.last) { %>
-                    <li><a href="/admin/order?page=<%= loop.index %>">&raquo;</a></li>
-                    <% } %>
-
-                    <% }); %>
                 </ul>
             </div>
         </div>

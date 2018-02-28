@@ -347,11 +347,11 @@ module.exports = {
     install: function (req, res) { // read data from the core_module database and go back to module/create with the list of modules available
 
         var output;
-        var allParam = req.params.all(); // get the module name and add it in the db and table module with the configuration
+        //var allParam = req.params.all(); // get the module name and add it in the db and table module with the configuration
 
-        console.log('ModuleController - install - reqAllParam', allParam); // name contains the name of the module to install
+        //console.log('ModuleController - install - reqAllParam', allParam); // name contains the name of the module to install
 
-        if (allParam.moduleToInstall) {
+        /*if (allParam.moduleToInstall) {
 
             var moduleToInstall = allParam.moduleToInstall;
 
@@ -364,10 +364,19 @@ module.exports = {
             result.templateToInclude = 'installModuleDone';
             result.pathToInclude = '../module/installModuleDone.ejs';
             output = res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-        }
-        else { // return to the module page
+        }*/
 
-        }
+
+
+        var result = {};
+        //result.nameModule = moduleToInstall;
+        result.templateToInclude = 'installModuleDone';
+        result.pathToInclude = '../module/installNew.ejs';
+        output = res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+
+
+
         return output;
     },
 

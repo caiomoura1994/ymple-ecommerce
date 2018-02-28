@@ -15,73 +15,30 @@ var pathTemplateBackCore =  sails.config.globals.templatePathBackCore;
 
 module.exports = {
 
+
+
+
+
+
+    // will set a list of category and call the template to display the list
     list: function (req, res) {
-        var result = {
-            admin: req.session.user
-        };
-        var skip = 0;
-        var page = 1;
 
-        if (req.query.hasOwnProperty('page')) {
-            skip = (req.query.page - 1) * 10;
-            page = req.query.page;
-        }
 
-        var queryOptions = {
-            where: {},
-            skip: skip,
-            limit: 10,
-            sort: 'createdAt DESC'
-        };
+        CoreReadDbService.getCategoryList().then(function(data){
 
-        result.page = page;
+            console.log('CategoryController - list', data);
 
-        async.waterfall([
-            function GetTotalCount(next) {
-                Category.count(function (err, num) {
-                    if (err) return next(err);
+            var result =[];
 
-                    result.pages = [];
+            result.products = data;
 
-                    for (var i = 0, count = parseInt(num / queryOptions.limit); i <= count; i++) {
-                        result.pages.push(i + 1);
-                    }
-
-                    return next(null);
-                });
-            },
-
-            function GetProducts(next) {
-                Category.find(queryOptions, function (err, products) {
-                    if (err) next(err);
-
-                    result.products = products;
-
-                    return next(null);
-                });
-            },
-
-            function GetEditProduct(next) {
-                if (!req.params.hasOwnProperty('id')) {
-                    return next(null);
-                    return;
-                }
-
-                Category.findOne(req.params.id, function (err, product) {
-                    if (err) next(err);
-                    result.edit = product;
-
-                    return next(null);
-                });
-            }
-        ], function (err) {
-            if (err) return res.serverError(err);
             result.templateToInclude = 'categoryList';
             result.pathToInclude = '../category/list.ejs';
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-        });
-    },
 
+            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+        })
+    },
 
     /**
      * `CategoryController.create()`

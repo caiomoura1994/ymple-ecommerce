@@ -6,11 +6,12 @@
  */
 var async = require('async');
 var pathTemplateBackCore =  sails.config.globals.templatePathBackCore;
+var pathToService = '../../../services/core/';
 
+var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
 
 module.exports = {
 	
-
 
   /**
    * `OrderController.manage()`
@@ -29,35 +30,24 @@ module.exports = {
       page = req.query.page;
     }
 
-    var queryOptions = {
+    /*var queryOptions = {
       where: {},
       skip: skip,
       limit: 10,
       sort: 'createdAt DESC'
-    };
+    };*/
 
     result.page = page;
 
     async.waterfall([
-      function GetTotalCount (next) {
-        Order.count(function (err, num) {
-          if (err) return next (err);
-
-          result.pages = [];
-
-          for ( var i = 0, count = parseInt(num/queryOptions.limit); i <= count; i++ ) {
-            result.pages.push(i+1);
-          }
-
-          return next(null);
-        });
-      },
 
       function GetOrders (next) {
-        Order.find(queryOptions, function (err, orders) {
-          if (err) next (err);
 
-          result.orders = orders;
+        CoreReadDbService.getOrderList().then(function (data1) {
+
+          console.log ( 'back OrderController - manage - data1', data1);
+
+          result.orders = data1;
 
           return next(null);
         });
@@ -68,8 +58,11 @@ module.exports = {
           return next(null);
         }
 
-        Order.findOne(req.params.id, function (err, order) {
-          if (err) next (err);
+        var orderId = req.params.id;
+        CoreReadDbService.getOrderItem(orderId).then(function (order) {
+
+
+          //if (err) next (err);
           result.edit = order;
 
           return next(null);
@@ -82,7 +75,7 @@ module.exports = {
       result.templateToInclude  = 'yes';
 
       result.pathToInclude = '../order/list.ejs';
-      // res.json(result);
+
       return res.view(pathTemplateBackCore +'commun-back/main.ejs', result);
     });
   },

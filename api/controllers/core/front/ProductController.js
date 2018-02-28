@@ -41,25 +41,23 @@ module.exports = {
             user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
         };
 
-        async.waterfall([
-            function GetProduct(next) {
-                Product.findOne(req.params.id, function (err, product) {
-                    if (err) return res.serverError(err);
-                    if (!product) return res.serverError('NO_PRODUCT_FOUND');
 
-                    // URLIFY
-                    product.description = Urlify(product.description);
+        var productId = req.params.id;
 
-                    result.cart = req.session.cart;
-                    result.product = product;
 
-                    return next(null, result);
-                });
+
+        CoreReadDbService.getProductItem(productId).then(function (data) {
+
+            var result = {};
+
+            if (data){
+            data.description = Urlify(data.description);
             }
-        ], function (err, result) {
-            if (err) res.serverError(err);
+            result.cart = req.session.cart;
+            result.product = data;
 
             return res.view(theme + 'product/single-item.ejs', result);
+
         });
     },
 
@@ -83,15 +81,11 @@ module.exports = {
             product_query = ''; //default value, return all the product
         }
 
-        async.waterfall([
-            function GetProductList(next) {
 
-                Product.find({
-                    name: {
-                        'contains': product_query
-                    }
-                }, function (err, products) {
-                    if (err) next(err);
+        CoreReadDbService.getProductList().then(function (products) {
+
+                console.log('return full product list ', products);
+
 
                     // check if the image is available
                     var fs = require('fs');
@@ -124,36 +118,22 @@ module.exports = {
 
                     console.info('productController products', products)
 
-                    return next(null);
-                });
-            },
-
-            function getCategoryList(next) {
 
                 var newIdProduct = CoreReadDbService.getCategoryList().then(function (categoryList) {
 
                     console.log('promise return value categoryList:', categoryList);
                     result.categoryList = categoryList;
-                    return next(null, categoryList);
+
+                    result.query = req.query.name;
+                    result.showSearchMenu = 1;
+
+
+                    return res.view(theme + 'index.ejs', result);
+
                 });
 
-            },
+            });
 
-        ], function (err) {
-            if (err) return res.serverError(err);
-
-            if (req.session.hasOwnProperty('cart')) {
-                result.cart = req.session.cart;
-            }
-            else {
-                result.cart = [];
-            }
-            result.query = req.query.name;
-            result.showSearchMenu = 1;
-
-
-            return res.view(theme + 'index.ejs', result);
-        });
     },
 
     status: function (req, res) {

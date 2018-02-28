@@ -29,7 +29,12 @@ module.exports = {
 
     },
 
+
+
+    // will return the max value for idProduct , default will be 1
     getNewId: function (fieldName) { // return the new id product to use
+
+
         var MongoClient = require('mongodb').MongoClient;
         return new Promise(
             function (resolve, reject) {
@@ -199,6 +204,201 @@ module.exports = {
     },
 
 
+
+    getOrderItem: function (idOrder) { // return the data and item information about one order
+
+
+        console.log('service - getOrderItem - start ');
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "order";
+
+                //console.log('getProductItem - idOrder', idOrder);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    //var idProduct = input[0].id;
+
+                    var findQuery = {"idOrder":idOrder};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+
+                        console.log(err);
+
+                        console.log('getOrderItem - data', data[0]);
+
+                        var output = data;
+
+                        resolve(output);
+                    })
+                })
+            })
+
+        return promise;
+    },
+
+
+    getOrderList: function () { // return the data and item information about one order
+
+
+        console.log('service - getOrderList - start ');
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "order";
+
+                //console.log('getProductItem - idOrder', idOrder);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    //var idProduct = input[0].id;
+
+                    var findQuery = {};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+
+                        console.log(err);
+
+                        console.log('getOrderItem - data', data[0]);
+
+                        var output = data;
+
+                        resolve(output);
+                    })
+                })
+            })
+
+        return promise;
+    },
+
+
+    getUserItemByEmail: function (email) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "user";
+
+                console.log('getUserItem - email', email);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    var findQuery = {"email": email};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+                        //db.close();
+                        console.log(err);
+
+                        console.log('getUserItem - data', data[0]);
+
+                        var output = data[0];
+
+                        resolve(output);
+                    })
+                })
+            })
+
+        return promise;
+    },
+
+
+
+    getProductItem: function (idProduct) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "product";
+
+                console.log('getProductItem - idProduct', idProduct);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    //var idProduct = input[0].id;
+
+                    var findQuery = {"idProduct": parseInt(idProduct)};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+                        //db.close();
+                        console.log(err);
+
+                        console.log('getProductItem - data', data[0]);
+
+                        var output = data[0];
+
+                        resolve(output);    //docs[0].name.toString()); // returns to the function that calls the callback
+                    })
+                })
+            })
+
+        return promise;
+    },
+
+
+    getProductItem: function (idProduct) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "product";
+
+                console.log('getProductItem - idProduct', idProduct);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    //var idProduct = input[0].id;
+
+                    var findQuery = {"idProduct": parseInt(idProduct)};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+                        //db.close();
+                        console.log(err);
+
+                        console.log('getProductItem - data', data[0]);
+
+                        var output = data[0];
+
+                        resolve(output);    //docs[0].name.toString()); // returns to the function that calls the callback
+                    })
+                })
+            })
+
+        return promise;
+    },
+
     getProductListFromOneCategory: function (idCategory) { // return the data and item information about one order
 
         var promise = new Promise(
@@ -234,6 +434,38 @@ module.exports = {
         return promise;
     },
 
+    getProductList: function (idCategory) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "product";
+
+                //console.log('getProductList - idCategory', idCategory);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    var findQuery = {};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+                        //db.close();
+                        console.log(err);
+
+                        console.log('getProductList - data', data);
+
+                        resolve(data);    //docs[0].name.toString()); // returns to the function that calls the callback
+                    })
+                })
+            })
+
+        return promise;
+    },
 
     getTotalAmountForOneOrder: function (idOrder) { // return the total amount for one order based on the item list
 
@@ -313,11 +545,19 @@ module.exports = {
 
                     var col = db.collection(collection);
 
-                    var obj_ids = input.map(function (item) {
+                   /* var obj_ids = input.map(function (item) {
                         return ObjectId(item.id)
+                    });*/
+
+                    var obj_ids = input.map(function (item) {
+                        return item.id
                     });
 
-                    var findQuery = {"_id": {"$in": obj_ids}}
+
+                    console.log ('returnItemWithPriceForOrder - obj_ids', obj_ids);
+
+
+                    var findQuery = {"idProduct": {"$in": obj_ids}}
 
                     col.find(
                         findQuery

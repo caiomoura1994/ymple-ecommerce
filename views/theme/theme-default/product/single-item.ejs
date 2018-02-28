@@ -101,12 +101,12 @@
                       
             </div>
 
-            <% if ( product.id) { %>
+            <% if ( product.idProduct) { %>
                   
-            <button data-id="<%= product.id %>" data-role="add"
+            <button data-id="<%= product.idProduct %>" data-role="add"
                     class="btn btn-default btn"> <%= __('Add to Cart') %> </button>
                   
-            <Button data-id="<%= product.id %>" data-role="buy"
+            <Button data-id="<%= product.idProduct %>" data-role="buy"
                     class="btn btn-primary btn"> <%= __('Purchase') %> </button>
 
             <% } %>

@@ -53,6 +53,8 @@ module.exports = {
 
 
                 User.findOne(idCustomer).populate('orders', queryOptions).exec(function (err, user) {
+
+
                     if (err) return next(err);
                     if (!user) return next('NO_USER_FOUND');
 

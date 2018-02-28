@@ -1,7 +1,7 @@
 <div class="">
     <h4 style="color:forestgreen"><a href="/admin"></a>PRODUCT MODIFICATION</h4>
 
-    <form role="form" action="/admin/product/edit/validation/<%=product.id%>" method="POST">
+    <form role="form" action="/admin/product/edit/validation/<%=product.idProduct%>" method="POST">
         <div class="row">
             <div class="col-sm-6">
                 <label> <%= __('name') %> </label>
@@ -9,7 +9,7 @@
                                   placeholder="<%= __('Please enter your name') %>"
                                   value="<% if (product && product.name) { %> <%= product.name %>  <% } %>">
 
-                <input type="hidden" name="id" id="id" value="<%= product.id %>">
+                <input type="hidden" name="idProduct" id="idProduct" value="<%= product.idProduct %>">
 
             </div>
             <div class="col-sm-6">
