@@ -32,7 +32,13 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
-    <!--STYLES-->
+    <!--STYLES-->    <link href="/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet">
+
+
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+
+    <link href="/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/dependencies/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/dependencies/basic.css">
     <link rel="stylesheet" href="/styles/dependencies/bootstrapValidator.min.css">
@@ -40,11 +46,24 @@
     <link rel="stylesheet" href="/styles/dependencies/dropzone.css">
     <link rel="stylesheet" href="/styles/dependencies/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/dependencies/ymple.css">
+
+    <script src="/js/dependencies/jquery-2.1.1.min.js"></script>
+
+    <script src="/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link href="/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+    <script src="/js/bootstrap-toggle.min.js"></script>
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
     <!--STYLES END-->
 </head>
 
 <body>
-<script src="/js/dependencies/jquery-2.1.1.min.js"></script>
 
 <!--
     Client-side Templates
@@ -100,7 +119,7 @@
 <script src="/js/dependencies/sails.io.js"></script>
 <script src="/js/dependencies/jquery-2.1.1.min.js"></script>
 <script src="/js/dependencies/additional-methods.min.js"></script>
-<script src="/js/dependencies/bootstrap.min.js"></script>
+<!--script src="/js/dependencies/bootstrap.min.js"></script-->
 <script src="/js/dependencies/dropzone.min.js"></script>
 <script src="/js/dependencies/icheck.min.js"></script>
 <script src="/js/dependencies/jquery.fs.selecter.min.js"></script>
