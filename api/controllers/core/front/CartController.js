@@ -12,6 +12,8 @@ var pathToService = '../../../services/core/';
 var async = require('async');
 var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
 var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
+var theme = sails.config.globals.theme;
+
 
 module.exports = {
     index: function (req, res) {
@@ -66,7 +68,15 @@ module.exports = {
         ], function (err, result) {
             if (err) return res.serverError(err);
 
-            return res.view(pathTemplateFrontCore + 'cart/cart.ejs', result);
+            //return res.view(pathTemplateFrontCore + 'cart/cart.ejs', result);
+
+
+            let pathTemplate = theme + 'cart/cart.ejs';
+
+            console.log ( 'cart - index - path template ',pathTemplate )
+
+            return res.view(pathTemplate, result);
+
         });
     },
 

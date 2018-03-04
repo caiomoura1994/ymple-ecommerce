@@ -57,36 +57,26 @@
         </header>
 
         <div class="container">
-            <h2 class="section-title no-margin-top">Motorola Moto G 8GB Black</h2>
+            <h2 class="section-title no-margin-top"> <% if (product.name) { %>
+
+                <%= product.name %>
+
+                    <% } %></h2>
             <div class="row">
                 <div class="col-md-4">
 
                     <ul class="bxslider">
                         <% if (product.idProduct){ %>
-                        <li><img src="/images/product/<%= product.idProduct %>/1.png" width="100%" id="thumbnail" class="thumbnail" style="width: 350px"/></li>
+                        <li><img src="/images/product/<%= product.idProduct %>/1.png"  style="width: 437px; height: 437px;"/></li>
                         <% } %>
 
-                        <% if (product.idProduct){ %>
-                        <li><img src="/images/product/<%= product.idProduct %>/1.png" width="100%" id="thumbnail" class="thumbnail" style="width: 350px"/></li>
-                        <% } %>
-                        <% if (product.idProduct){ %>
-                        <li><img src="/images/product/<%= product.idProduct %>/1.png" width="100%" id="thumbnail" class="thumbnail" style="width: 350px"/></li>
-                        <% } %>
-                        <% if (product.idProduct){ %>
-                        <li><img src="/images/product/<%= product.idProduct %>/1.png" width="100%" id="thumbnail" class="thumbnail" style="width: 350px"/></li>
-                        <% } %>
-
-
-                        <li><img src="/images/product/<%= product.idProduct %>/1.png" width="100%" id="thumbnail" class="thumbnail" style="width: 350px"/></li>
-
+                        <li><img src="/img/demo/e_product1.jpg" /></li>
 
                     </ul>
 
                     <div id="bx-pager">
-                        <a data-slide-index="0" href=""><img src="/images/product/<%= product.idProduct %>/1.png" /></a>
-                        <a data-slide-index="1" href=""><img src="/images/product/<%= product.idProduct %>/1.png" /></a>
-                        <a data-slide-index="2" href=""><img src="/images/product/<%= product.idProduct %>/1.png" /></a>
-                        <a data-slide-index="3" href=""><img src="/images/product/<%= product.idProduct %>/1.png" /></a>
+                        <a data-slide-index="0" href=""><img src="/images/product/<%= product.idProduct %>/1.png" style="width: 50px; height: 50px;" /></a>
+
                         <a data-slide-index="4" href=""><img src="/img/demo/e_img5.jpg" /></a>
                     </div>
                 </div>
@@ -104,8 +94,29 @@
 
                 </div>
                 <div class="col-md-3">
-                    <div class="e-price">$ <span>229</span>.00</div>
-                    <a href="#" class="btn btn-ar btn-block btn-success"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                    <div class="e-price"> <% if (product.price) { %> <%= sails.config.project.currency.symbol %> <span> <%= product.price | 'currency' %></span><% } %></div>
+
+                    <% if ( product.idProduct) { %>
+                          
+                    <button data-id="<%= product.idProduct %>" data-role="add"
+                            class="btn btn-ar btn-block btn-success"> <i class="fa fa-shopping-cart"></i> <%= __('Add to Cart') %></button>
+
+
+                    <button data-id="<%= product.idProduct %>" data-role="buy"
+                            class="btn btn-ar btn-block btn-primary"> <i class="fa fa-shopping-cart"></i> <%= __('Purchase') %></button>
+
+                          
+
+
+                    <% } %>
+
+
+
+
+
+
+
+
                     <h3 class="right-line">Related Products</h3>
                     <div class="ec-box">
                         <div class="ec-box-header"><a href="#">Bq Aquaris 5 16GB White</a></div>
@@ -114,6 +125,14 @@
                             <span class="label label-primary">$ 249.99</span>
                             <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                         </div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -193,7 +212,7 @@
 
 </html>
 
-<%- include ../../../core/commun/library.ejs %>
+<%- include ../../../core/front/commun-front/library.ejs %>
 
 <style>
     .preview {
