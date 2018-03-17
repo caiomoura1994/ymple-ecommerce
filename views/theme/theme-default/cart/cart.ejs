@@ -27,39 +27,65 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Price</th>
+
+                    <th>Quantity</th>
+                    <th>Total</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>4568</td>
-                    <td><img src="/img/demo/e_img01.jpg" width="100" height="" alt=""></td>
-                    <td><a href="#">Iphone 5S</a></td>
-                    <td>$ 649.00</td>
+
+
+                <% cart.forEach(function (product){ %>
+
+                <tr data-id="<%= product.id %>">
+                    <td><%= product.id %></td>
+                    <td><img src="/images/product/<%= product.id %>/1.png" width="100" height="" alt=""></td>
+                    <td><a href="#"><%= product.name %></a></td>
+                    <td><%= sails.config.project.currency.symbol %> <%= product.price | 'currency' %></td>
+
+                    <td>
+                        <select  type="text" class="form-control" name="quantity">
+
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4 </option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8 </option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+
+                        </select>
+
+                    </td>
+                    <td><%= sails.config.project.currency.symbol %><%= (product.price * product.quantity) | 'currency' %></td>
+
+
+                    <td>
+                        <button class="btn btn-xs btn-primary" button-action="apply">APPLY</button>
+                        <button class="btn btn-xs btn-danger" button-action="delete">DELETE</button>
+                    </td>
                 </tr>
-                <tr>
-                    <td>6982</td>
-                    <td><img src="/img/demo/e_img02.jpg" width="100" height="" alt=""></td>
-                    <td><a href="#">Keyboard Pro Game</a></td>
-                    <td>$ 49.99</td>
-                </tr>
-                <tr>
-                    <td>3354</td>
-                    <td><img src="/img/demo/e_img07.jpg" width="100" height="" alt=""></td>
-                    <td><a href="#">LG 55LA620S 55" LED 3D</a></td>
-                    <td>$ 999.99</td>
-                </tr>
+
+           <% }) %>
+
                 </tbody>
             </table>
         </div>
         <div class="col-md-4">
-            <div class="e-price">$ <span>1698</span>.98</div>
-            <a href="#" class="btn btn-ar btn-block btn-success"><i class="fa fa-shopping-cart"></i> Checkout</a>
+            <div class="e-price"><%= sails.config.project.currency.symbol %> <span><% if ( summary) { %><%= summary %><%}else{ %><%= 0.00%><% }%></span></div>
+            <a href="/checkout" class="btn btn-ar btn-block btn-success"><i class="fa fa-shopping-cart"></i> Checkout</a>
+
+            <a href="/cart/clear" class="btn btn-warning btn-ar btn-block"> <%= __('Empty Cart') %> </a>
+
             <h3 class="right-line">Related Products</h3>
             <div class="ec-box">
-                <div class="ec-box-header"><a href="#">Bq Aquaris 5 16GB White</a></div>
-                <a href="#"><img src="/img/demo/e_img03.jpg" alt=""></a>
+                <div class="ec-box-header"><a href="#">-</a></div>
+                <a href="#"><img src="/images/ymple/product-example.png" alt="" style="width: 443px;"></a>
                 <div class="ec-box-footer">
-                    <span class="label label-primary">$ 249.99</span>
+                    <span class="label label-primary">$ 0.00</span>
                     <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
@@ -69,78 +95,6 @@
 </div>
 
 
-<div class="container">
-
-    <h3 style="color:forestgreen"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <%= __('Cart') %> <a href="/cart/clear" class="btn btn-warning pull-right"> <%= __('Empty Cart') %> </a></h3>
-    <hr/>
-
-    <% if (cart.length <= 0) { %>
-    <h3><%= __('Your shopping cart is currently empty') %></h3>
-    <% } else { %>
-    <div class="row clearfix">
-        <div class="col-lg-12">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-
-                    <th> <%= __('name') %> </th>
-                    <th> <%= __('Price') %> </th>
-                    <th> <%= __('Quantity') %> </th>
-                    <th> <%= __('total') %> </th>
-
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <% cart.forEach(function (product){ %>
-                <a href="#">
-                    <tr data-id="<%= product.id %>">
-                        <!--td>{{ loop.index %></td-->
-                        <td><%= product.name %></td>
-                        <td><%= sails.config.project.currency.symbol %> <%= product.price | 'currency' %></td>
-                        <!--td><input class="form-control" type="text" value="<%= product.quantity %>"/></td-->
-
-                        <td>
-                            <select  type="text" class="form-control" name="quantity">
-
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4 </option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8 </option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-
-                        </select>
-
-                        </td>
-
-                        <td><%= sails.config.project.currency.symbol %><%= (product.price * product.quantity) | 'currency' %></td>
-
-                        <td>
-                            <button class="btn btn-xs btn-primary" button-action="apply">APPLY</button>
-                            <button class="btn btn-xs btn-danger" button-action="delete">DELETE</button>
-                        </td>
-                    </tr>
-                </a>
-                <% }) %>
-
-                <tr>
-                    <td colspan="2"><%= __('Sum') %></td>
-                    <td><%= total %></td>
-                    <td colspan><%= sails.config.project.currency.symbol %><%= summary | 'currency' %></td>
-                    <td><a href="/checkout" class="btn btn-success"><%= __('Order') %></a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <% } %>
-</div>
 
 
 <!--%- include core/front/commun-front/library.ejs %-->
