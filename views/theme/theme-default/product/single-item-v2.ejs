@@ -50,19 +50,18 @@
                     <div id="bx-pager">
                         <a data-slide-index="0" href=""><img src="/images/product/<%= product.idProduct %>/1.png" style="width: 50px; height: 50px;" /></a>
 
-                        <a data-slide-index="4" href=""><img src="/img/demo/e_img5.jpg" /></a>
+                        <a data-slide-index="4" href=""><img src="/images/ymple/product-example.png" style="width: 50px;"/></a>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <h3 class="no-margin-top">Description</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam eum molestias modi error perspiciatis, recusandae commodi laudantium dolorem illo quaerat molestiae quis placeat non saepe harum necessitatibus alias porro at.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minima repellat incidunt magni laborum porro totam explicabo, quis nostrum aliquid provident, harum.</p>
+                    <p>
+                        <%if (product.description){ %> <%= product.description %> <%}%>
+                    </p>
                     <h4>Specifications</h4>
                     <ul class="unstyled">
-                        <li><strong>Memory: </strong> 8GB standard, 16GB version available / RAM- 1GB LPDDR2</li>
-                        <li><strong>PROCESSOR: </strong>Qualcomm MSM8x26 quad-core A7 1.2GHz (Adreno 305 450MHz GPU)</li>
-                        <li><strong>Bands/Modes: </strong>CDMA: 850/1900 UMTS: 850/900/1700/1900/2100 GSM: 850/900/1800/1900</li>
-                        <li><strong>Operating system: </strong>Android 4.4, KitKat</li>
+                        <li><%if (product.specification){ %> <%= product.specification %> <%}%></li>
+
                     </ul>
 
                 </div>
@@ -77,25 +76,15 @@
 
                     <button data-id="<%= product.idProduct %>" data-role="buy"
                             class="btn btn-ar btn-block btn-primary"> <i class="fa fa-shopping-cart"></i> <%= __('Purchase') %></button>
-
-                          
-
-
                     <% } %>
-
-
-
-
-
-
 
 
                     <h3 class="right-line">Related Products</h3>
                     <div class="ec-box">
-                        <div class="ec-box-header"><a href="#">Bq Aquaris 5 16GB White</a></div>
-                        <a href="#"><img src="/img/demo/e_img03.jpg" alt=""></a>
+                        <div class="ec-box-header"><a href="#">-</a></div>
+                        <a href="#"><img src="/images/ymple/product-example.png" alt="" style="width:324px; "></a>
                         <div class="ec-box-footer">
-                            <span class="label label-primary">$ 249.99</span>
+                            <span class="label label-primary">$ 0.00</span>
                             <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                         </div>
 
