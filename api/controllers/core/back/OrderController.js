@@ -17,6 +17,39 @@ module.exports = {
    * `OrderController.manage()`
    */
 
+  item: function (req, res, id) {
+    let result = {
+      admin: req.session.user
+    };
+
+    //result.page = page;
+
+    async.waterfall([
+
+      function GetEditProduct (next) {
+
+        let orderId = id;
+
+        //var orderId = req.params.id;
+        CoreReadDbService.getOrderItem(orderId).then(function (order) {
+
+          console.log ( 'OrderController - item - order',order );
+
+          //if (err) next (err);
+          result.data = order;
+
+          return next(null);
+        });
+      }
+    ], function (err) {
+      if (err) return res.serverError(err);
+
+      result.templateToInclude  = 'yes';
+      result.pathToInclude = '../order/item.ejs';
+
+      return res.view(pathTemplateBackCore +'commun-back/main.ejs', result);
+    });
+  },
 
   manage: function (req, res) {
     var result = {

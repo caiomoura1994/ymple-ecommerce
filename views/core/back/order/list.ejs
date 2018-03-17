@@ -61,7 +61,7 @@
 <td>Status</td>
 
                     <td>
-                        <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-default" button-action="edit">DETAILS</a>
+                        <a href="/admin/order/<%= order.idOrder %>" class="btn btn-xs btn-default" button-action="edit">DETAILS</a>
                     </td>
                     <td>
                         <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-default" button-action="edit">UPDATE</a>
@@ -75,7 +75,8 @@
 
             <div style="text-align: center;">
                 <ul class="pagination">
-                    <li><a href="/admin/order">&laquo;</a></li>
+                    <li><a href="#/admin/order"><</a></li>
+                    <li><a href="#/admin/order">></a></li>
 
 
                 </ul>
