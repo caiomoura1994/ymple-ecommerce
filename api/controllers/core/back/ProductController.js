@@ -206,7 +206,7 @@ module.exports = {
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
-            console.log('productController - productNewValidation - req.body', data);
+            console.log('productController - editValidation - req.body', data);
 
         }
         else {

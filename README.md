@@ -2,6 +2,7 @@
 <a href="https://www.ymple.com"><img alt="Ymple Ecommerce" src="https://www.ymple.com/img/colors/blue/logo_big.png" title="Ymple Ecommerce"/></a>
 </h1>
 
+[![Gitter](https://badges.gitter.im/JoinChat.svg)](https://gitter.im/Ymple/ymple-commerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### [Product Page](https://www.ymple.com/)
 
@@ -41,8 +42,6 @@ How To Run
 - With Github
 
 git clone https://github.com/Ymple/ymple-ecommerce.git
-
-cd ymple-ecommerce
 
 npm install
 

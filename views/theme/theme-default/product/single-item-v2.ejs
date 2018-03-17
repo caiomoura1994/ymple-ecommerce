@@ -4,46 +4,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<%- include ../../../core/front/commun-front/head.ejs %>
 
-    <title>Artificial Reason</title>
-
-    <link rel="shortcut icon" href="/img/favicon.png" />
-
-    <meta name="description" content="">
-
-    <!-- CSS -->
-    <link href="/css/preload-öymple.css" rel="stylesheet">
-
-    <!-- Compiled in vendors.js -->
-    <!--
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-switch.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/css/animate.min.css" rel="stylesheet">
-    <link href="/css/slidebars.min.css" rel="stylesheet">
-    <link href="/css/lightbox.css" rel="stylesheet">
-    <link href="/css/jquery.bxslider.css" rel="stylesheet" />
-    <link href="/css/buttons.css" rel="stylesheet">
-    -->
-
-    <link href="/css/vendors-ymple.css" rel="stylesheet">
-    <link href="/css/syntaxhighlighter/shCore.css" rel="stylesheet" >
-
-    <link href="/css/style-blue-ymple.css" rel="stylesheet" title="default">
-    <link href="/css/width-full-ymple.css" rel="stylesheet" title="default">
-
-
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.min.js"></script>
-    <script src="/js/respond.min.js"></script>
-    <![endif]-->
-</head>
 
 <!-- Preloader -->
 <div id="preloader">
@@ -68,50 +30,71 @@
         </header>
 
         <div class="container">
-            <h2 class="section-title no-margin-top">Motorola Moto G 8GB Black</h2>
+            <h2 class="section-title no-margin-top"> <% if (product.name) { %>
+
+                <%= product.name %>
+
+                    <% } %></h2>
             <div class="row">
                 <div class="col-md-4">
 
                     <ul class="bxslider">
-                        <li><img src="/img/demo/e_product1.jpg" /></li>
-                        <li><img src="/img/demo/e_product2.jpg" /></li>
-                        <li><img src="/img/demo/e_product3.jpg" /></li>
-                        <li><img src="/img/demo/e_product4.jpg" /></li>
-                        <li><img src="/img/demo/e_product5.jpg" /></li>
+                        <% if (product.idProduct){ %>
+                        <li><img src="/images/product/<%= product.idProduct %>/1.png"  style="width: 437px; height: 437px;"/></li>
+                        <% } %>
+
+                        <li><img src="/images/ymple/product-example.png" style="width: 437px; height: 437px;"/></li>
+
                     </ul>
 
                     <div id="bx-pager">
-                        <a data-slide-index="0" href=""><img src="/img/demo/e_img1.jpg" /></a>
-                        <a data-slide-index="1" href=""><img src="/img/demo/e_img2.jpg" /></a>
-                        <a data-slide-index="2" href=""><img src="/img/demo/e_img3.jpg" /></a>
-                        <a data-slide-index="3" href=""><img src="/img/demo/e_img4.jpg" /></a>
-                        <a data-slide-index="4" href=""><img src="/img/demo/e_img5.jpg" /></a>
+                        <a data-slide-index="0" href=""><img src="/images/product/<%= product.idProduct %>/1.png" style="width: 50px; height: 50px;" /></a>
+
+                        <a data-slide-index="4" href=""><img src="/images/ymple/product-example.png" style="width: 50px;"/></a>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <h3 class="no-margin-top">Description</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam eum molestias modi error perspiciatis, recusandae commodi laudantium dolorem illo quaerat molestiae quis placeat non saepe harum necessitatibus alias porro at.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minima repellat incidunt magni laborum porro totam explicabo, quis nostrum aliquid provident, harum.</p>
+                    <p>
+                        <%if (product.description){ %> <%= product.description %> <%}%>
+                    </p>
                     <h4>Specifications</h4>
                     <ul class="unstyled">
-                        <li><strong>Memory: </strong> 8GB standard, 16GB version available / RAM- 1GB LPDDR2</li>
-                        <li><strong>PROCESSOR: </strong>Qualcomm MSM8x26 quad-core A7 1.2GHz (Adreno 305 450MHz GPU)</li>
-                        <li><strong>Bands/Modes: </strong>CDMA: 850/1900 UMTS: 850/900/1700/1900/2100 GSM: 850/900/1800/1900</li>
-                        <li><strong>Operating system: </strong>Android 4.4, KitKat</li>
+                        <li><%if (product.specification){ %> <%= product.specification %> <%}%></li>
+
                     </ul>
 
                 </div>
                 <div class="col-md-3">
-                    <div class="e-price">$ <span>229</span>.00</div>
-                    <a href="#" class="btn btn-ar btn-block btn-success"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                    <div class="e-price"> <% if (product.price) { %> <%= sails.config.project.currency.symbol %> <span> <%= product.price | 'currency' %></span><% } %></div>
+
+                    <% if ( product.idProduct) { %>
+                          
+                    <button data-id="<%= product.idProduct %>" data-role="add"
+                            class="btn btn-ar btn-block btn-success"> <i class="fa fa-shopping-cart"></i> <%= __('Add to Cart') %></button>
+
+
+                    <button data-id="<%= product.idProduct %>" data-role="buy"
+                            class="btn btn-ar btn-block btn-primary"> <i class="fa fa-shopping-cart"></i> <%= __('Purchase') %></button>
+                    <% } %>
+
+
                     <h3 class="right-line">Related Products</h3>
                     <div class="ec-box">
-                        <div class="ec-box-header"><a href="#">Bq Aquaris 5 16GB White</a></div>
-                        <a href="#"><img src="/img/demo/e_img03.jpg" alt=""></a>
+                        <div class="ec-box-header"><a href="#">-</a></div>
+                        <a href="#"><img src="/images/ymple/product-example.png" alt="" style="width:324px; "></a>
                         <div class="ec-box-footer">
-                            <span class="label label-primary">$ 249.99</span>
+                            <span class="label label-primary">$ 0.00</span>
                             <a href="#" class="btn btn-ar btn-success btn-sm pull-right"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                         </div>
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -191,7 +174,7 @@
 
 </html>
 
-<%- include ../../../core/commun/library.ejs %>
+<%- include ../../../core/front/commun-front/library.ejs %>
 
 <style>
     .preview {

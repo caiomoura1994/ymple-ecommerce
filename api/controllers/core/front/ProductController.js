@@ -56,7 +56,7 @@ module.exports = {
             result.cart = req.session.cart;
             result.product = data;
 
-            return res.view(theme + 'product/single-item.ejs', result);
+            return res.view(theme + 'product/single-item-v2.ejs', result);
 
         });
     },

@@ -82,14 +82,10 @@
 
         <% } else {%>
 
-        <div class="row">
+        <div class="row" style="text-align: center">
 
-            <div class="col-sm-6 ">
                 <a href="/login?redirect_url=/checkout" type="submit" class="btn btn-primary">       <%= __('Login to Continue') %>   </a>
-            </div>
-
-
-            <div class="col-sm-6 ">
+           &nbsp;
                 <a href="/login?redirect_url=/checkout" type="submit" class="btn btn-primary">       <%= __('Sign Up to Continue') %>   </a>
 
             </div>
@@ -101,7 +97,7 @@
     </form>
 </div>
 
-<%- include ../../commun/library.ejs %>
+<%- include ../../front/commun-front/library.ejs %>
 
 
 <script type="text/javascript">
