@@ -4,10 +4,36 @@
 <div class="container">
 
 
-    <h3 class="title-green"><%= __('Order Summary ') %> </h3>
+    <h3 class="title-green" style="text-align: center"><%= __('Order Summary ') %> </h3>
+
+
+    <!--
+    div class="row">
+        <div class="col-sm-6">
+            <label> <%= __('Address1') %> </label>
+                       <input type="text" class="form-control" id="name" name="name"
+                              placeholder="<%= __('Please enter your name') %>"
+                              value="">
+
+            <input type="hidden" name="idProduct" id="idProduct" value="">
+
+        </div>
+        <div class="col-sm-6">
+            <label style="align-content: center;text-align: center"> <%= __('Address2') %> </label>
+                <input type="text" class="form-control" id="price" name="price"
+                       placeholder="<%= __('Please enter the price') %>"
+                       value="">
+        </div>
+    </div-->
+
 
       
-    <div>List of articles</div>
+    <div style="text-align: center;">
+        
+        <h4 style="color: forestgreen;;">Product List</h4>
+    
+    
+   
 
 
     <ul>
@@ -18,25 +44,43 @@
         <% }); %>
     </ul>
 
-
-    <h3 class="title-green"><%= __('Customer information') %> </h3>
+    </div>
 
       
-    <div>Customer information</div>
+    <div style="text-align: center;">
+
+        <h4 class="title-green"><%= __('Customer information') %> </h4>
 
 
-    <ul>
-        Name: <%= user.name %> <br>
-        Price <%= user.email %> <br>
-    </ul>
+        <ul>
+            Name: <%= user.name %> <br>
+            Price <%= user.email %> <br>
+        </ul>
+
+    </div>
+
+
+
 
     <br><br>
 
-    <div>
 
-        <a href="/payment/paypal/pay/<%= orderReference %>"><img src="/images/express-checkout-paypal.png" style="max-width: 150px"></a>
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+
+            <h4 style="color: forestgreen;;">Payment Confirmation</h4>
+                    
+
+            <a href="/payment/paypal/pay/<%= orderReference %>"><img src="/images/express-checkout-paypal.png" style="max-width: 150px"></a>
+
+
+        </div>
 
     </div>
+
+
+
+
 
           <!--div id="paypal-button"  style="    text-align: -webkit-center;"></div-->
 

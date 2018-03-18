@@ -5,19 +5,20 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var Promise = require('bluebird');
+const Promise = require('bluebird');
 
-var async = require('async');
+const async = require('async');
 
-var pathToService = '../../../services/core/';
+let pathToService = '../../../services/core/';
+let pathTemplateBackCore = sails.config.globals.templatePathBackCore;
 
-var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
-var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
-var CoreDeleteDbService = require(pathToService + 'back/CoreDeleteDbService');
 
-var pathTemplateBackCore = sails.config.globals.templatePathBackCore;
+const CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
+const CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
+const CoreDeleteDbService = require(pathToService + 'back/CoreDeleteDbService');
 
-//module.exports = CoreReadDbService;
+
+const UserService = require(pathToService + 'user/UserService');
 
 
 module.exports = {
@@ -81,6 +82,9 @@ module.exports = {
     },
 
     list: function (req, res) {
+
+
+        UserService.checkBackEndLogged(req, res);
 
 
         CoreReadDbService.getProductList().then(function (data) {

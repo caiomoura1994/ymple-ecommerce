@@ -68,6 +68,8 @@ module.exports = {
 
         //remove the token from session
 
+        req.session.admin = {};
+
         CoreLoginService.logout(req, res);
         return res.redirect('/admin');
     }

@@ -9,6 +9,7 @@ var pathTemplateBackCore = sails.config.globals.templatePathBackCore;
 var pathToService = '../../../services/core/';
 
 var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
+var UserService = require(pathToService + 'user/UserService');
 
 module.exports = {
 
@@ -23,9 +24,17 @@ module.exports = {
      */
 
     item: function (req, res, id) {
+
+
+        UserService.checkBackEndLogged(req, res);
+
+
         let result = {
             admin: req.session.user
         };
+
+
+
 
 
         console.log('OrderController - item - req.session', req.session);
@@ -95,6 +104,10 @@ module.exports = {
     },
 
     manage: function (req, res) {
+
+        UserService.checkBackEndLogged(req, res);
+
+
         var result = {
             admin: req.session.user
         };
