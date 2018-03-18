@@ -29,8 +29,8 @@ module.exports.policies = {
   '*': true,
 
   'UserController': {
-    '*': true,
-    'profile': 'sessionAuth'
+    //'*': true,
+    //'profile': 'sessionAuth'
   },
 
   'core/back/AdminController': {
@@ -38,16 +38,16 @@ module.exports.policies = {
   },
 
   'ProductController': {
-    '*': true,
-    'create': 'sessionAdmin',
-    'update': 'sessionAdmin',
-    'delete': 'sessionAdmin',
-    'status': 'sessionAdmin'
+    //'*': true,
+    //'create': 'sessionAdmin',
+    //'update': 'sessionAdmin',
+    //'delete': 'sessionAdmin',
+    //'status': 'sessionAdmin'
   },
 
   'OrderController': {
-    '*': true,
-    'index': 'sessionAdmin'
+    //'*': true,
+    //'index': 'sessionAdmin'
   }
 
   /***************************************************************************

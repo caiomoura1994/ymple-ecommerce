@@ -62,6 +62,7 @@ module.exports.routes = {
 
     'POST    /admin/category/create/validation': 'core/back/CategoryController.createValidation',
 
+    'GET    /admin/order/:id': 'core/back/OrderController.item',
     'GET    /admin/order/manage': 'core/back/OrderController.manage',
 
     'GET    /admin/customer/list': 'core/back/CustomerController.user',
