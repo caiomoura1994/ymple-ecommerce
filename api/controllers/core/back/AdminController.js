@@ -18,32 +18,47 @@ module.exports = {
 
         var isLogged = false;
 
-        if ( req.body && req.body.email && req.body.password) {
+        if (req.body && req.body.email && req.body.password) {
 
 
-            var email = req.body.email;
-            var password = req.body.password;
-            isLogged = CoreLoginService.login(req, res, email , password);
+            let email = req.body.email;
+            let password = req.body.password;
+            isLogged = CoreLoginService.login(req, res, email, password);
 
             console.log('loginValidation - req', req.body);
 
-            // set the session token based on the user and password
-        }
+            req.session.admin = {};
+
+            req.session.admin.email = email;
+
+            req.session.admin.isLogged = 1;
 
 
-        if (isLogged )
-        {
+            // save admin user information in session
+            CoreReadDbService.getUserItemByEmail(email).then(function (user) {
 
-            var result = {};
 
-            result.templateToInclude = 'admin';
-            result.pathToInclude = '../admin';
+                console.log('AdminController - loginValidation - user ', user);
 
-            return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
+                req.session.admin.user = user;
 
-        }
-        else{
-            return res.redirect('/admin');
+                if (isLogged) {
+
+                    var result = {};
+
+                    result.templateToInclude = 'admin';
+                    result.pathToInclude = '../admin';
+
+                    return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
+
+                }
+                else {
+                    return res.redirect('/admin');
+                }
+
+            });
+
+
         }
 
     },
@@ -53,12 +68,14 @@ module.exports = {
 
         //remove the token from session
 
+        req.session.admin = {};
+
         CoreLoginService.logout(req, res);
         return res.redirect('/admin');
     }
-        ,
+    ,
 
-        login: function (req, res) {
+    login: function (req, res) {
 
         console.log('login');
         var result = {};
@@ -208,12 +225,10 @@ module.exports = {
 
             return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
         }
-        else{
+        else {
             return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
 
         }
-
-
 
 
     },

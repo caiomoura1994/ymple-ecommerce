@@ -175,7 +175,7 @@ module.exports = {
 
 
                         if (!data) done('NO_PRODUCT_FOUND');
-                        if (data.stock === 0 || ( data.stock !== -1 && data.stock - item.quantity <= 0 )) done('SOLD_OUT');
+                        if (data.stock === 0 || ( data.stock !== -1 && data.stock - item.quantity <= 0 )) done('SOLD_OUT, Quantity for this item = 0');
 
                         var prodcutInfo = {
                             id: data.idProduct,

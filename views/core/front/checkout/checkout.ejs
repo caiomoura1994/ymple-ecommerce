@@ -5,9 +5,11 @@
 <div class="container">
     <form role="form" id="order" action="/order" method="POST">
 
-        <h3 style="color:forestgreen"> <%= __('Checking out') %> <a href="/cart"
+        <h4 style="color:forestgreen;text-align: center"> <%= __('Checkout') %> <a href="/cart"
                                                                     class="btn btn-warning pull-right"> <%= __('change') %> </a>
-        </h3>
+        </h4>
+
+        <hr>
 
         <% if ( typeof cart == 'undefined' ){ %>
 
@@ -53,24 +55,22 @@
 
 
 
-        <br>
+        <hr>
         <% if (typeof isLogin != 'undefined' && isLogin) { %>
 
 
         <%- include payment-delivery-method.ejs %>
 
+        <hr>
 
-        <br>
 
         <%- include customer_information.ejs %>
 
-        <br>
+        <hr>
 
         <%- include delivery_information.ejs %>
 
-        <br>
-        <br>
-
+        <hr>
 
         <div style ="text-align: center">
         <button type="submit" class="btn btn-info btn-lg">
