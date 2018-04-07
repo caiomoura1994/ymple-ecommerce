@@ -29,11 +29,11 @@
 
       
     <div style="text-align: center;">
-        
+
         <h4 style="color: forestgreen;;">Product List</h4>
-    
-    
-   
+
+
+
 
 
     <ul>
@@ -59,27 +59,29 @@
 
     </div>
 
+    <br>
 
 
+    <div class="row" style="border: 1px solid forestgreen;">
+        <div class="col-sm-6" style="text-align: center;margin-top: 20px;">
 
-    <br><br>
+            <h4 style="color: forestgreen;">Paypal Payment</h4>
+                   
+        </div>
 
-
-    <div class="row">
-        <div class="col-sm-12" style="text-align: center;">
-
-            <h4 style="color: forestgreen;;">Payment Confirmation</h4>
-                    
-
+        <div class="col-sm-6" style="text-align: center;">
+                   
             <a href="/payment/paypal/pay/<%= orderReference %>"><img src="/images/express-checkout-paypal.png" style="max-width: 150px"></a>
-
 
         </div>
 
     </div>
 
 
+<br>
 
+
+    <%- include ./stripe/stripe-button.ejs %>
 
 
           <!--div id="paypal-button"  style="    text-align: -webkit-center;"></div-->

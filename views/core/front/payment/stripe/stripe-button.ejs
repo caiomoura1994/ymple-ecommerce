@@ -1,0 +1,25 @@
+<div class="row" style="border: 1px solid forestgreen;">
+    <div class="col-sm-6" style="text-align: center; margin-top: 5px;   ">
+
+        <h4 style="color: forestgreen;">Stripe Payment</h4>
+               
+    </div>
+
+    <div class="col-sm-6" style="text-align: center;margin-top: 10px;">
+
+        <form action="/payment/stripe/confirmation/" method="POST">
+            <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                    data-amount="9999"
+                    data-name="Ymple.com"
+                    data-description="Example charge"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-zip-code="true">
+            </script>
+        </form>
+
+    </div>
+
+</div>

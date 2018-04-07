@@ -4,3 +4,4 @@ assets/images/product
 .tmp
 data/
 node_modules/
+node_modules/.bin/

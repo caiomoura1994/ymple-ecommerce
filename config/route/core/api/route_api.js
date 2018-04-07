@@ -1,6 +1,10 @@
 module.exports.routes = {
 
 
+
+    'POST /payment/stripe/confirmation/': 'core/back/module/stripeController.confirmation', // confirm the stripe payment
+
+
     'POST /product/save_image/:idProduct': 'core/api/UploadController.saveImageProduct',
 
 
