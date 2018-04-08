@@ -2,6 +2,7 @@ assets/images/product
 .tmp/public/uploads
 .tmp/public/fonts/
 .tmp
-data/
+/data/
 node_modules/
 node_modules/.bin/
+pro/
