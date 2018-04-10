@@ -8,6 +8,7 @@
     <div class="col-sm-6" style="text-align: center;margin-top: 10px;">
 
         <form action="/payment/stripe/confirmation/" method="POST">
+
             <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
@@ -16,7 +17,8 @@
                     data-description="Example charge"
                     data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                     data-locale="auto"
-                    data-zip-code="true">
+                    data-zip-code="true"
+                    data-currency="eur">
             </script>
         </form>
 
