@@ -81,7 +81,7 @@ function unzipModuleZip(file, dir) {
     const cmd = require('node-cmd');
 
     cmd.get(
-        'unzip ' + file + " -d " + dir,
+        'unzip -o ' + file + " -d " + dir,
         function (err, data, stderr) {
             console.log('ModuleImportController - operation to unzip the module - data: ', data)
         }
