@@ -1,7 +1,7 @@
 assets/images/product
 .tmp/public/uploads
 .tmp/public/fonts/
-.tmp
+/.tmp
 /data/
 node_modules/
 node_modules/.bin/
