@@ -198,6 +198,14 @@ module.exports = {
                 };
 
                 result.listModule.push(item);
+                result.templateToInclude = 'list_module';
+                result.pathToInclude = '../module/list.ejs';
+                result.idProduct = 0;
+                result.listCoreModule = '';
+
+                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+
 
             }
             else if (nameModule == "theme") {
@@ -214,47 +222,15 @@ module.exports = {
                 };
 
                 result.listModule.push(item);
+                result.templateToInclude = 'list_module';
+                result.pathToInclude = '../module/list.ejs';
+                result.idProduct = 0;
+                result.listCoreModule = '';
+
+                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
             }
             else if (nameModule == "payment") {
-
-
-
-
-                var item = [{
-
-                    idModule: 0,
-                    category: nameModule,
-                    configuration: "",
-                    description: "",
-                    createAt: "",
-                    name: "paypal",
-                    isActive: 1
-                },
-                    {
-
-                        idModule: 0,
-                        category: nameModule,
-                        configuration: "",
-                        description: "",
-                        createAt: "",
-                        name: "stripe",
-                        isActive: 1
-                    },
-
-                    {
-
-                        idModule: 0,
-                        category: nameModule,
-                        configuration: "",
-                        description: "",
-                        createAt: "",
-                        name: "stripe",
-                        isActive: 1
-                    }
-
-
-                ];
 
                 var collection = "module_payment";
 
@@ -275,55 +251,7 @@ module.exports = {
 
 
 
-           /* result.templateToInclude = 'list_module';
-            result.pathToInclude = '../module/list.ejs';
-            result.idProduct = 0;
-            result.listCoreModule = '';
-
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);*/
         }
-
-        /*CoreReadDbService.getListModuleOneCategory().then(function (data) {
-
-            console.log('ModuleController - search', data); // add the module list from the configuration file
-            var configurationModuleTemplate = sails.config.module.category.template;
-            console.log('configurationModule', configurationModuleTemplate);
-
-            var connections = require('../../../../config/module');
-
-            console.log('connections', connections.module.category.template);
-
-            var result = {};
-            if (data) {
-                result.listModule = data;
-            }
-            try {
-
-                _.each(configurationModuleTemplate, function (val, key) {
-                    var item = {
-
-                        idModule: 0, category: "template", configuration: "", description: "", createAt: "", name: key,
-                        isActive: val.isActive
-                    };
-
-                    result.listModule.push(item);
-
-                })
-
-            } catch (err) {
-                // Handle the error here.
-                console.log(err);
-
-            }
-
-            result.templateToInclude = 'list_module';
-            result.pathToInclude = '../module/list.ejs';
-            result.idProduct = 0;
-            result.listCoreModule = '';
-
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-        });*/
     },
 
 
