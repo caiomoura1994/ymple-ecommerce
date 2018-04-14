@@ -66,8 +66,8 @@
                         </td>
 
                         <td>
-                            <a href="/admin/module/save/<%= module.name %>" class="btn btn-xs btn-success"
-                               button-action="edit">SAVE</a>
+                            <span  id = "save-module-1" href="/admin/module/save/<%= module.name %>" class="btn btn-xs btn-success save-module"
+                               button-action="edit">SAVE</span>
                         </td>
 
                     </tr>
@@ -162,6 +162,39 @@
         console.log ( "property");
         //alert($(this).prop('checked'))
     })
+
+
+    $('.save-module').click(function(event) {
+
+        console.log ( "click to save module values ");
+
+        //alert(event.target.id);
+
+        console.log (event);
+
+
+
+
+        var bla = $('#toggle-module-1').val();
+
+        console.log('toogle value', bla);
+
+
+        if ($('#toggle-module-1').is(":checked"))
+        {
+
+            console.log ( "is checked");
+            // it is checked
+        }
+        else{
+            console.log ( 'is not checked');
+        }
+        // get the new state value to save on call the api
+
+
+        //alert($(this).prop('checked'))
+    })
+
 
 
 
