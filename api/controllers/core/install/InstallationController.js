@@ -52,7 +52,7 @@ module.exports = {
 
                 console.log ("call to CoreInsertDbService.udpateModuleConfiguration");
                 CoreInsertDbService.udpateModuleConfiguration(collectionName, nameModule, data);
-                
+
                 msg = 'Installation Database done + creation default admin user ( admin / admin), you can go to /admin';
 
             }
