@@ -2,6 +2,9 @@ module.exports.routes = {
 
 
 
+    'POST /api/module/update': 'core/api/ModuleController.update',
+
+
     'POST /product/save_image/:idProduct': 'core/api/UploadController.saveImageProduct',
 
 

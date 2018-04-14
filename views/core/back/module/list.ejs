@@ -39,13 +39,13 @@
                         <% if (module.isActive) { %>
                         <td>
 
-                            <input id="toggle-module-1" type="checkbox" checked  data-toggle="toggle"  data-size="small" >
+                            <input id="toggle-module-<%= module.name %><%- JSON.stringify(module) %>" type="checkbox" checked  data-toggle="toggle"  data-size="small" >
 
                         </td>
                         <% }  else { %>
                                  
                         <td>
-                            <input id="toggle-module-2" type="checkbox"   data-toggle="toggle"  data-size="small" >
+                            <input id="toggle-module-<%= module.name %>" type="checkbox"   data-toggle="toggle"  data-size="small" >
 
                             </button>
                         </td>
@@ -66,7 +66,7 @@
                         </td>
 
                         <td>
-                            <span  id = "save-module-1" href="/admin/module/save/<%= module.name %>" class="btn btn-xs btn-success save-module"
+                            <span  id = "<%= module.name %>" href="/admin/module/save/<%= module.name %>" class="btn btn-xs btn-success save-module"
                                button-action="edit">SAVE</span>
                         </td>
 
@@ -167,33 +167,47 @@
     $('.save-module').click(function(event) {
 
         console.log ( "click to save module values ");
-
-        //alert(event.target.id);
-
         console.log (event);
 
+        let nameModule = event.target.id;
+        let isModuleChecked = 0;
 
+        //var bla = $('#toggle-module-1').val();
+        //console.log('toogle value', bla);
 
-
-        var bla = $('#toggle-module-1').val();
-
-        console.log('toogle value', bla);
-
-
-        if ($('#toggle-module-1').is(":checked"))
+        if ($('#toggle-module-'+nameModule).is(":checked"))
         {
-
             console.log ( "is checked");
+            isModuleChecked = 1;
             // it is checked
         }
         else{
             console.log ( 'is not checked');
         }
         // get the new state value to save on call the api
-
-
         //alert($(this).prop('checked'))
+        // do an ajax call to update the module activation status
+
+        let urlUpdateModule = "/api/module/update/";
+        let data = {"isModuleChecked":isModuleChecked, "moduleName": nameModule};
+
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: urlUpdateModule,
+            data: JSON.stringify(data),
+            success: function (result) {
+                alert("update done for "+nameModule);
+            }
+        });
+
+
     })
+
+
+
+
 
 
 
