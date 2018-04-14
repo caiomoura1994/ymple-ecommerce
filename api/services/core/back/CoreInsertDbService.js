@@ -2,14 +2,8 @@
 
 //var nodemailer = require('nodemailer');
 
-var bcrypt = require('bcryptjs');
-
-// create reusable transporter object using SMTP transport
-//var transporter = nodemailer.createTransport({
-//  service: 'Gmail',
-//  auth: sails.config.project.nodemailer.auth
-//});
-var ObjectId = require('mongodb').ObjectID;
+const bcrypt = require('bcryptjs');
+const ObjectId = require('mongodb').ObjectID;
 
 
 console.log('sails.config.connections');
@@ -176,18 +170,14 @@ getValueFromArray = function (data, element, type) {
                             else {
                                 //console.log(result);
                             }
-
                         }
                     );
-
                 }
-
                 // var collection = db.collection('product');
                 //var lotsOfDocs = [{'hello': 'doc3'}, {'hello': 'doc4'}];
 
                 //     collection.insert(dataToInsert);
                 //  }
-
             });
         },
 
@@ -280,7 +270,43 @@ getValueFromArray = function (data, element, type) {
             });
         },
 
-        insertModuleConfiguration: function (collectionName,nameModule, dataToInsert) { // Insert one configuration for a module
+        udpateModuleConfiguration: function (collectionName, nameModule, data) {
+
+            console.log ("udpateModuleConfiguration - start -data", data );
+
+            var MongoClient = require('mongodb').MongoClient;
+            MongoClient.connect(urlConnection).then(function (db) {
+
+                var date = new Date();
+                //var createdAt = date.toISOString();
+                var updatedAt = date.toISOString();
+
+                //dataToInsert.createdAt = createdAt;
+                data.updatedAt = updatedAt;
+
+                var collection = db.collection(collectionName);
+
+                if (sails.config.demoMode != 1) {
+
+                    collection.update({name: nameModule},
+                        {$set: data},
+                        {upsert: true}, function (error, result) {
+                            if (error) {
+
+                                console.log(error);
+                            }
+                            if (result) {
+                                console.log(result);
+                            }
+                        })
+                }
+
+            });
+        },
+
+
+        insertModuleConfiguration: function (collectionName, nameModule, dataToInsert) {
+            // Insert one configuration for a module
             // the rules for the collection name is module_[category]_[moduleName]
 
             var MongoClient = require('mongodb').MongoClient;
@@ -686,7 +712,7 @@ getValueFromArray = function (data, element, type) {
                 var updatedAt = date.toISOString();
                 var collection = db.collection('api');
                 var name_key = 'api_key';
-                var data = {'value':apiKey, 'name_key':name_key};
+                var data = {'value': apiKey, 'name_key': name_key};
 
                 //console.log('saveImageProduct - update');
 
