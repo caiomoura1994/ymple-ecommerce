@@ -177,7 +177,6 @@ module.exports = {
     listForOneModule: function (req, res) {
         console.log('getListModuleOneCategory - req', req.params);
 
-
         var result = [];
         result.listModule = [];
 
@@ -219,6 +218,9 @@ module.exports = {
             }
             else if (nameModule == "payment") {
 
+
+
+
                 var item = [{
 
                     idModule: 0,
@@ -238,21 +240,50 @@ module.exports = {
                         createAt: "",
                         name: "stripe",
                         isActive: 1
-                    }];
+                    },
 
-                result.listModule = item;
+                    {
 
+                        idModule: 0,
+                        category: nameModule,
+                        configuration: "",
+                        description: "",
+                        createAt: "",
+                        name: "stripe",
+                        isActive: 1
+                    }
+
+
+                ];
+
+                var collection = "module_payment";
+
+                CoreReadDbService.getListModuleOneCategory(collection).then(function (data) {
+
+                    console.log('ModuleController - getListModuleOneCategory - module_payment - data', data);
+
+                    result.listModule = data;
+                    result.templateToInclude = 'list_module';
+                    result.pathToInclude = '../module/list.ejs';
+                    result.idProduct = 0;
+                    result.listCoreModule = '';
+
+                    return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+                });
             }
 
-            result.templateToInclude = 'list_module';
+
+
+           /* result.templateToInclude = 'list_module';
             result.pathToInclude = '../module/list.ejs';
             result.idProduct = 0;
             result.listCoreModule = '';
 
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);*/
         }
 
-        CoreReadDbService.getListModuleOneCategory().then(function (data) {
+        /*CoreReadDbService.getListModuleOneCategory().then(function (data) {
 
             console.log('ModuleController - search', data); // add the module list from the configuration file
             var configurationModuleTemplate = sails.config.module.category.template;
@@ -292,7 +323,7 @@ module.exports = {
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
-        });
+        });*/
     },
 
 

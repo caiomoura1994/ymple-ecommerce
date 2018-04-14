@@ -47,7 +47,8 @@ module.exports = {
                     "category" : "payment",
                     "createdAt" : "2017-12-18T10:21:20.408Z",
                     "updatedAt" : "2018-04-14T15:27:17.498Z",
-                    "isActive" : 1
+                    "isActive" : 1,
+                    "idModule": 0
                 };
 
                 console.log ("call to CoreInsertDbService.udpateModuleConfiguration");
