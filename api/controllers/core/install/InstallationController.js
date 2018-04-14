@@ -36,6 +36,23 @@ module.exports = {
                 CoreInsertDbService.firstInstallCoreModule('paypal');
                 CoreInsertDbService.firstInstallCoreModule('stripe');
 
+                // create default module
+                let collectionName = "module_payment";
+                let nameModule = "paypal";
+                let data = {
+                    "name" : "paypal",
+                    "client_id" : "EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM",
+                    "client_secret" : "EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM",
+                    "mode" : "sandbox",
+                    "category" : "payment",
+                    "createdAt" : "2017-12-18T10:21:20.408Z",
+                    "updatedAt" : "2018-04-14T15:27:17.498Z",
+                    "isActive" : 1
+                };
+
+                console.log ("call to CoreInsertDbService.udpateModuleConfiguration");
+                CoreInsertDbService.udpateModuleConfiguration(collectionName, nameModule, data);
+                
                 msg = 'Installation Database done + creation default admin user ( admin / admin), you can go to /admin';
 
             }
