@@ -36,6 +36,14 @@
                                     
                         <Th> <%= __('state') %></th>
 
+                        <Th></th>
+
+                        <Th></th>
+
+                        <Th></th>
+
+                        <Th></th>
+
 
                         <th></th>
                     </tr>
@@ -100,7 +108,7 @@
                         <td>
 
 
-                            <input id="toggle-product-<%= product.id %>" type="checkbox" checked data-toggle="toggle">
+                            <input id="toggle-product-<%= product.id %>" type="checkbox" checked data-toggle="toggle" data-size="small">
 
                         </td>
                         <% } %>
@@ -116,6 +124,12 @@
                         <td>
                             <a href="/admin/product/delete/<%= product.idProduct %>" class="btn btn-xs btn-danger" button-action="delete">DELETE</a>
                         </td>
+
+                        <td>
+                            <a href="/admin/product/save/<%= product.idProduct %>" class="btn btn-xs btn-success" button-action="save">SAVE</a>
+                        </td>
+
+
                     </tr>
 
                     <%}%>
