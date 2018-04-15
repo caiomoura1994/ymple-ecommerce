@@ -230,19 +230,26 @@ module.exports = {
 
                 console.log ("front/OrderController - pay - arg1", arg1);
                 let moduleCategory= "module_payment";
+
+
                 CoreReadDbService.getListModuleByCategory(moduleCategory).then(function (data) {
 
 
 
                     // fetch the data and set the option
-
                     console.log ("Front/OrderController - getListModuleByCategory - data", data );
                     result.module = {};
-                    result.module.paypal = {};
-                    result.module.stripe = {};
 
-                    result.module.paypal.isActive = 1;
-                    result.module.stripe.isActive = 1;
+
+
+                    data.forEach(function(item){
+
+                        result.module[item.name] = {};
+
+                        result.module[item.name]["isActive"] = item.isActive;
+
+                    });
+
 
                     callback(null, 'one');
 
