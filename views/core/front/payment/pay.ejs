@@ -35,11 +35,23 @@
 
     <br>
 
+
+    <% if (typeof module !== 'undefined' && typeof module.paypal !== 'undefined' && typeof module.paypal.isActive !==
+    'undefined' && module.paypal.isActive == 1) { %>
+
     <%- include ./paypal/paypal-button.ejs %>
+
+    <% } %>
 
     <br>
 
+    <% if (typeof module !== 'undefined' && typeof module.stripe !== 'undefined' && typeof module.stripe.isActive !==
+    'undefined' && module.stripe.isActive == 1) { %>
+
     <%- include ./stripe/stripe-button.ejs %>
+
+    <% } %>
+
 
           <!--div id="paypal-button"  style="    text-align: -webkit-center;"></div-->
 

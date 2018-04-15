@@ -12,7 +12,7 @@ var pathToService = '../../../services/core/';
 var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
 var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
 
-var pathTemplateFrontCore =  sails.config.globals.templatePathFrontCore;
+var pathTemplateFrontCore = sails.config.globals.templatePathFrontCore;
 var async = require('async');
 
 module.exports = {
@@ -44,12 +44,7 @@ module.exports = {
         sails.log('PAID:' + req.body);
 
 
-
-
-
         Order.findOne(req.body.merchant_uid, function (err, order) {
-
-
 
 
             if (err) return res.serverError(err);
@@ -208,25 +203,49 @@ module.exports = {
         }
 
         async.waterfall([
-            function GetOrder(next) {
+            function (callback) {
 
                 var orderId = req.params.id;
 
+                console.log ("front/OrderController - orderId", orderId);
+
                 CoreReadDbService.getOrderItem(orderId).then(function (data) {
+
+
+                    console.log ("front/OrderController - data", data);
 
                     if (data && data.status && data.status === 'PAID') return next('ALREADY_PAID');
 
                     result.order = data;
                     result.amount = 10;
 
-                    return next(null);
+                    callback(null, result);
                 });
 
             },
-        ], function (err) {
-            if (err) return res.redirect('/order/' + req.params.id + '?error=' + err);
 
-            return res.view(pathTemplateFrontCore + 'payment/pay.ejs', result)
+
+            function (arg1, callback) {
+
+                console.log ("front/OrderController - pay - arg1", arg1);
+
+                result.module = {};
+                result.module.paypal = {};
+                result.module.paypal.isActive = 1;
+                result.module.stripe.isActive = 1;
+
+
+                callback(null, 'one');
+            }
+
+
+        ], function (err, result2) {
+            if (err) {
+                return res.redirect('/order/' + req.params.id + '?error=' + err);
+            }
+            else {
+                return res.view(pathTemplateFrontCore + 'payment/pay.ejs', result);
+            }
         });
     },
 
