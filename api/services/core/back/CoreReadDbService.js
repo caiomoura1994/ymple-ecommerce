@@ -662,4 +662,35 @@ module.exports = {
     },
 
 
+
+    // return the list of module for one category
+    getListModuleByCategory: function (moduleCategory) {
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = moduleCategory;
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+                    var findQuery = {};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+
+                        console.log(err);
+                        console.log('CoreReadDbService - getListModuleByCategory - data', data);
+
+                        resolve(data);
+                    })
+                })
+            })
+
+        return promise;
+
+    },
+
 };

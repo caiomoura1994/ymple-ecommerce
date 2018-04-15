@@ -225,17 +225,34 @@ module.exports = {
             },
 
 
+            // set the payment module status
             function (arg1, callback) {
 
                 console.log ("front/OrderController - pay - arg1", arg1);
-
-                result.module = {};
-                result.module.paypal = {};
-                result.module.paypal.isActive = 1;
-                result.module.stripe.isActive = 1;
+                let moduleCategory= "module_payment";
+                CoreReadDbService.getListModuleByCategory(moduleCategory).then(function (data) {
 
 
-                callback(null, 'one');
+
+                    // fetch the data and set the option
+
+                    console.log ("Front/OrderController - getListModuleByCategory - data", data );
+                    result.module = {};
+                    result.module.paypal = {};
+                    result.module.stripe = {};
+
+                    result.module.paypal.isActive = 1;
+                    result.module.stripe.isActive = 1;
+
+                    callback(null, 'one');
+
+
+                })
+
+
+
+
+
             }
 
 
