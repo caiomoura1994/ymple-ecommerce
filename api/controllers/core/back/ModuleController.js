@@ -210,46 +210,16 @@ module.exports = {
             }
             else if (nameModule == "theme") {
 
-                var item = {
 
-                    idModule: 0,
-                    category: nameModule,
-                    configuration: "",
-                    description: "",
-                    createAt: "",
-                    name: "carousel",
-                    isActive: 1
-                };
-
-                result.listModule.push(item);
-                result.templateToInclude = 'list_module';
-                result.pathToInclude = '../module/list.ejs';
-                result.idProduct = 0;
-                result.listCoreModule = '';
-
-                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+                let collection = "module_theme";
+                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
 
             }
             else if (nameModule == "payment") {
 
-                var collection = "module_payment";
-
-                CoreReadDbService.getListModuleOneCategory(collection).then(function (data) {
-
-                    console.log('ModuleController - getListModuleOneCategory - module_payment - data', data);
-
-                    result.listModule = data;
-                    result.templateToInclude = 'list_module';
-                    result.pathToInclude = '../module/list.ejs';
-                    result.idProduct = 0;
-                    result.listCoreModule = '';
-
-                    return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-                });
+                let collection = "module_payment";
+                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
             }
-
-
 
         }
     },
@@ -651,4 +621,24 @@ function Urlify(text) {
         return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });
 };
+
+
+function returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore)
+{
+    CoreReadDbService.getListModuleOneCategory(collection).then(function (data) {
+
+        console.log('ModuleController - getListModuleOneCategory - module_payment - data', data);
+
+        result.listModule = data;
+        result.templateToInclude = 'list_module';
+        result.pathToInclude = '../module/list.ejs';
+        result.idProduct = 0;
+        result.listCoreModule = '';
+
+        return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+    });
+
+
+}
 
