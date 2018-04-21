@@ -24,7 +24,7 @@ module.exports = {
         console.log("idOrder", idOrder);
         console.log("stripeController - req", req.body);
 
-        let secretKey = "sk_test_BQokikJOvBiI2HlWgH4olfQ2";
+        let secretKey = "sk_test_oN51ofGps3tFXiHwJcKw3Yg1";
         let amount = 999;
         let currency = 'eur';
         let description = "Example charge";
@@ -76,6 +76,9 @@ module.exports = {
 
 
 function saveCard(res, secretKey, token) {
+
+    var result = {};
+
 
     var stripe = require("stripe")(secretKey);
 
