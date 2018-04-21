@@ -101,7 +101,7 @@ function deployNewModule(dir) {
     const cmd = require('node-cmd');
 
 
-    let pathFileInstallation = dir + "module/script_deployment/deploy.js";
+    let pathFileInstallation = dir + "module/module/script_deployment/deploy.js";
 
 
     cmd.get(
