@@ -10,3 +10,4 @@ views/core/front/module/
 views/core/back/module/
 api/controllers/core/back/module/
 api/controllers/core/front/module/
+package-lock.json
