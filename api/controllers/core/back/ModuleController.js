@@ -63,74 +63,6 @@ module.exports = {
 
 
 
-    import: function (req, res, idProduct) {
-
-        console.log('ModuleController - import');
-
-        var idProduct = 0;
-
-        var fs = require("fs");
-
-        console.info('image upload');
-
-        if (sails.config.demoMode != 1) {
-            req.file('file').upload(function (err, uploadedFiles) {
-
-                console.info('uploaded file');
-                console.info(uploadedFiles);
-
-                if (uploadedFiles[0].fd) {
-                    var filePath = uploadedFiles[0].fd;
-                    // var productId = 1;
-
-
-                    var dir = 'assets/images/product/' + idProduct + '/';
-                    var dir2 = '.tmp/public/images/product/' + idProduct + '/';
-                    // var dir2 = '/images/product/'+idProduct+ '/';
-
-
-                    if (!fs.existsSync(dir)) {
-                        fs.mkdirSync(dir);
-                    }
-
-                    // if (!fs.existsSync(dir2)){
-                    //      fs.mkdirSync(dir2);
-                    //}
-
-                    var filePathFinal1 = '/images/product/' + idProduct + '/1.png';
-                    var filePathFinal2 = '.tmp/public/images/product/' + idProduct + '/1.png';
-
-
-                    //TODO create the folder for this product with folder name = id
-
-                    // copy of the file to assets/images/
-                    fs.createReadStream(filePath).pipe(fs.createWriteStream('assets' + filePathFinal1));
-                    // fs.createReadStream(filePath).pipe(fs.createWriteStream(filePathFinal2));
-
-                }
-
-                // add the imagePath for this product
-
-                console.log('UploadController - saveImageProduct - start');
-                // CoreInsertDbService.saveImageProduct(idProduct, filePathFinal1);
-                // CoreInsertDbService.saveImageProduct(idProduct, filePathFinal2);
-
-
-            });
-
-            var msg = 'import of module complete';
-
-        }
-        else
-        {
-            var msg = 'demo mode';
-
-        }
-
-        return res.json({
-            msg: msg
-        });
-    },
 
 
     manage: function (req, res) {
@@ -245,7 +177,6 @@ module.exports = {
     listForOneModule: function (req, res) {
         console.log('getListModuleOneCategory - req', req.params);
 
-
         var result = [];
         result.listModule = [];
 
@@ -267,100 +198,30 @@ module.exports = {
                 };
 
                 result.listModule.push(item);
+                result.templateToInclude = 'list_module';
+                result.pathToInclude = '../module/list.ejs';
+                result.idProduct = 0;
+                result.listCoreModule = '';
+
+                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+
 
             }
             else if (nameModule == "theme") {
 
-                var item = {
 
-                    idModule: 0,
-                    category: nameModule,
-                    configuration: "",
-                    description: "",
-                    createAt: "",
-                    name: "carousel",
-                    isActive: 1
-                };
-
-                result.listModule.push(item);
+                let collection = "module_theme";
+                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
 
             }
             else if (nameModule == "payment") {
 
-                var item = [{
-
-                    idModule: 0,
-                    category: nameModule,
-                    configuration: "",
-                    description: "",
-                    createAt: "",
-                    name: "paypal",
-                    isActive: 1
-                },
-                    {
-
-                        idModule: 0,
-                        category: nameModule,
-                        configuration: "",
-                        description: "",
-                        createAt: "",
-                        name: "stripe",
-                        isActive: 1
-                    }];
-
-                result.listModule = item;
-
+                let collection = "module_payment";
+                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
             }
 
-            result.templateToInclude = 'list_module';
-            result.pathToInclude = '../module/list.ejs';
-            result.idProduct = 0;
-            result.listCoreModule = '';
-
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
         }
-
-        CoreReadDbService.getListModuleOneCategory().then(function (data) {
-
-            console.log('ModuleController - search', data); // add the module list from the configuration file
-            var configurationModuleTemplate = sails.config.module.category.template;
-            console.log('configurationModule', configurationModuleTemplate);
-
-            var connections = require('../../../../config/module');
-
-            console.log('connections', connections.module.category.template);
-
-            var result = {};
-            if (data) {
-                result.listModule = data;
-            }
-            try {
-
-                _.each(configurationModuleTemplate, function (val, key) {
-                    var item = {
-
-                        idModule: 0, category: "template", configuration: "", description: "", createAt: "", name: key,
-                        isActive: val.isActive
-                    };
-
-                    result.listModule.push(item);
-
-                })
-
-            } catch (err) {
-                // Handle the error here.
-                console.log(err);
-
-            }
-
-            result.templateToInclude = 'list_module';
-            result.pathToInclude = '../module/list.ejs';
-            result.idProduct = 0;
-            result.listCoreModule = '';
-
-            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-        });
     },
 
 
@@ -760,4 +621,24 @@ function Urlify(text) {
         return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });
 };
+
+
+function returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore)
+{
+    CoreReadDbService.getListModuleOneCategory(collection).then(function (data) {
+
+        console.log('ModuleController - getListModuleOneCategory - module_payment - data', data);
+
+        result.listModule = data;
+        result.templateToInclude = 'list_module';
+        result.pathToInclude = '../module/list.ejs';
+        result.idProduct = 0;
+        result.listCoreModule = '';
+
+        return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+    });
+
+
+}
 

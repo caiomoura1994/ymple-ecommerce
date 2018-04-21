@@ -3,46 +3,20 @@
 
 <div class="container">
 
-
     <h3 class="title-green" style="text-align: center"><%= __('Order Summary ') %> </h3>
-
-
-    <!--
-    div class="row">
-        <div class="col-sm-6">
-            <label> <%= __('Address1') %> </label>
-                       <input type="text" class="form-control" id="name" name="name"
-                              placeholder="<%= __('Please enter your name') %>"
-                              value="">
-
-            <input type="hidden" name="idProduct" id="idProduct" value="">
-
-        </div>
-        <div class="col-sm-6">
-            <label style="align-content: center;text-align: center"> <%= __('Address2') %> </label>
-                <input type="text" class="form-control" id="price" name="price"
-                       placeholder="<%= __('Please enter the price') %>"
-                       value="">
-        </div>
-    </div-->
-
-
       
     <div style="text-align: center;">
-        
+
         <h4 style="color: forestgreen;;">Product List</h4>
-    
-    
-   
 
 
-    <ul>
-        <% cart.forEach(function(cartItem){ %>
-        Name: <%= cartItem.name %> <br>
-        Price <%= cartItem.price %> <br>
-        Quantity: <%= cartItem.quantity %> <br>
-        <% }); %>
-    </ul>
+        <ul>
+            <% cart.forEach(function(cartItem){ %>
+            Name: <%= cartItem.name %> <br>
+            Price <%= cartItem.price %> <br>
+            Quantity: <%= cartItem.quantity %> <br>
+            <% }); %>
+        </ul>
 
     </div>
 
@@ -59,30 +33,20 @@
 
     </div>
 
+    <br>
 
 
+    <% if (typeof module !== 'undefined' && typeof module.paypal !== 'undefined' && typeof module.paypal.isActive !==
+    'undefined' && module.paypal.isActive == 1) { %>
 
-    <br><br>
+    <%- include ./paypal/paypal-button.ejs %>
 
-
-    <div class="row">
-        <div class="col-sm-12" style="text-align: center;">
-
-            <h4 style="color: forestgreen;;">Payment Confirmation</h4>
-                    
-
-            <a href="/payment/paypal/pay/<%= orderReference %>"><img src="/images/express-checkout-paypal.png" style="max-width: 150px"></a>
-
-
-        </div>
-
-    </div>
+    <% } %>
 
 
 
 
-
-          <!--div id="paypal-button"  style="    text-align: -webkit-center;"></div-->
+    <!--div id="paypal-button"  style="    text-align: -webkit-center;"></div-->
 
     <!--div style="text-align: center; margin: 150px;">
           
@@ -111,6 +75,8 @@
 <%- include ./paypal/paypal.ejs %>
 <% if (sails.config.project.paymentMethods.iamport.using){ %>
 <% if (order.payment === 'CARD' && order.status === 'PREPARE'){ %>
+
+
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment.js"></script>
 
 <script type="text/javascript">

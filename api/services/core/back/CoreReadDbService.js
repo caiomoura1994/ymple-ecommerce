@@ -120,12 +120,26 @@ module.exports = {
     },
 
 
-    getListModuleOneCategory: function () {
+    getListModuleOneCategory: function (collection) {
 
+        return new Promise(
+            function (resolve, reject) {
 
-        // return the list of module for one category
+                let MongoClient = require('mongodb').MongoClient;
+                let query = {};
 
+                MongoClient.connect(url, function (err, db) {
+                    var col = db.collection(String(collection));
+                    var data = col.find(query).toArray(function (err, data) {
+                        db.close();
+                        console.log('getListModuleOneCategory - data', data);
+                        resolve(data);
+                    });
+                })
+            })
     },
+
+
 
     getListCoreModuleInstalled: function () {
 
@@ -647,5 +661,36 @@ module.exports = {
 
     },
 
+
+
+    // return the list of module for one category
+    getListModuleByCategory: function (moduleCategory) {
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = moduleCategory;
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+                    var findQuery = {};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+
+                        console.log(err);
+                        console.log('CoreReadDbService - getListModuleByCategory - data', data);
+
+                        resolve(data);
+                    })
+                })
+            })
+
+        return promise;
+
+    },
 
 };

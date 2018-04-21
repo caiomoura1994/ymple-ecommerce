@@ -7,16 +7,15 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th> <%= __('one generation') %> </th>          
-                    <th> <%= __('Name') %> </th>
-                    <th> <%= __('Products') %> </th>
+                    <th>Order #</th>
+                    <th> <%= __('Customer') %> </th>          
+                    <th> <%= __('Purchased On') %> </th>
                     <Th> <%= __('Price') %> </th>
-                    <Th> <%= __('Telephone') %> </th>
                     <Th> <%= __('Address') %> </th>
-                    <Th> <%= __('Shipping') %> </th>
+                    <Th> <%= __('Shipping Provider') %> </th>
+                    <Th> <%= __('Shipping Status') %> </th>
                     <Th> <%= __('Payment') %> </th>
-                    <Th> <%= __('Status') %> </th>
+                    <Th> <%= __('Payment Status') %> </th>
                     <th> <%= __('Details') %> </th>
                     <th> <%= __('Update Status') %> </th>
 
@@ -27,28 +26,21 @@
                 <% orders.forEach(function (order) { %>
                 <tr data-id="<%= order.id %>">
                     <!--td>{{ loop.index %></td-->
-                    <td><%= order.createdAt %></td>
-                    <td>
-                        <% if (order.owner) { %>
-                        <a href="/user/<%= order.owner.id %>"><%= order.name %></a>
-                        <% } else { %>
-                        <%= order.name %>
-                        <% } %>
-                    </td>
-                    <td>
 
-                        <% if (order.products) { order.products.forEach(function(product){ %>
-                        <a href="/product/view/<%= product.id %>"><%= product.name %></a>
-                        <%= product.quantity %>
-                        <% })}; %>
-                    </td>
+                    <td><%= order.idOrder %></td>
+
+                    <td><%= order.name %></td>
+
+                    <td><%= order.createdAt %></td>
+
                     <td><%= order.price %></td>
-                    <td><%= order.phone %></td>
+
                     <td><%= order.address %></td>
 
-                    <td>
-                        <Span class="badge badge-success"> <%= __('advance payment') %> </span>
-                    </td>
+                    <td><%= order.shippingProvider %></td>
+
+                    <td><%= order.shippingStatus %></td>
+
                                 
                     <td>
                         <span class="badge badge-default"> <%= order.payment %>
@@ -56,15 +48,13 @@
                     </td>
                                 
                     <Td>
-                                       <Span class="badge badge-default"> <%= __('standby payment') %> </span>
-                    </td>
-<td>Status</td>
-
-                    <td>
-                        <a href="/admin/order/<%= order.idOrder %>" class="btn btn-xs btn-default" button-action="edit">DETAILS</a>
+                        <Span class="badge badge-primary" style="background-color: green"> <%= __('done') %> </span>
                     </td>
                     <td>
-                        <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-default" button-action="edit">UPDATE</a>
+                        <a href="/admin/order/<%= order.idOrder %>" class="btn btn-xs btn-primary" button-action="edit">DETAILS</a>
+                    </td>
+                    <td>
+                        <a href="#/admin/product/preview/<%= order.id %>" class="btn btn-xs btn-warning" button-action="edit">UPDATE</a>
                     </td>
 
                 </tr>

@@ -12,7 +12,7 @@ var pathToService = '../../../services/core/';
 var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
 var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
 
-var pathTemplateFrontCore =  sails.config.globals.templatePathFrontCore;
+var pathTemplateFrontCore = sails.config.globals.templatePathFrontCore;
 var async = require('async');
 
 module.exports = {
@@ -44,12 +44,7 @@ module.exports = {
         sails.log('PAID:' + req.body);
 
 
-
-
-
         Order.findOne(req.body.merchant_uid, function (err, order) {
-
-
 
 
             if (err) return res.serverError(err);
@@ -208,25 +203,73 @@ module.exports = {
         }
 
         async.waterfall([
-            function GetOrder(next) {
+            function (callback) {
 
                 var orderId = req.params.id;
 
+                console.log ("front/OrderController - orderId", orderId);
+
                 CoreReadDbService.getOrderItem(orderId).then(function (data) {
+
+
+                    console.log ("front/OrderController - data", data);
 
                     if (data && data.status && data.status === 'PAID') return next('ALREADY_PAID');
 
                     result.order = data;
                     result.amount = 10;
 
-                    return next(null);
+                    callback(null, result);
                 });
 
             },
-        ], function (err) {
-            if (err) return res.redirect('/order/' + req.params.id + '?error=' + err);
 
-            return res.view(pathTemplateFrontCore + 'payment/pay.ejs', result)
+
+            // set the payment module status
+            function (arg1, callback) {
+
+                console.log ("front/OrderController - pay - arg1", arg1);
+                let moduleCategory= "module_payment";
+
+
+                CoreReadDbService.getListModuleByCategory(moduleCategory).then(function (data) {
+
+
+
+                    // fetch the data and set the option
+                    console.log ("Front/OrderController - getListModuleByCategory - data", data );
+                    result.module = {};
+
+
+
+                    data.forEach(function(item){
+
+                        result.module[item.name] = {};
+
+                        result.module[item.name]["isActive"] = item.isActive;
+
+                    });
+
+
+                    callback(null, 'one');
+
+
+                })
+
+
+
+
+
+            }
+
+
+        ], function (err, result2) {
+            if (err) {
+                return res.redirect('/order/' + req.params.id + '?error=' + err);
+            }
+            else {
+                return res.view(pathTemplateFrontCore + 'payment/pay.ejs', result);
+            }
         });
     },
 

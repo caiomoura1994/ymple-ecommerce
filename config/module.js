@@ -21,27 +21,6 @@ module.exports.module = {
             }
         },
 
-        payment: {
-
-            paypal: {
-
-                isActive: 1,
-
-                back: {
-                    controller: "xx",
-                    service: "xx",
-                    template: "xx"
-                },
-                front: {
-
-                    controller: "xx",
-                    service: "xx",
-                    template: "xx"
-                }
-            }
-
-        },
-
         /***************************************************************************
          *                                                                          *
          * How and whether Sails will attempt to automatically rebuild the          *

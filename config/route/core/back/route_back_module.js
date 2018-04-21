@@ -17,7 +17,7 @@ module.exports.routes = {
     '/admin/module/paypal/': 'core/back/moduleController.paypal',
     '/admin/module/manage/': 'core/back/moduleController.manage',
 
-    '/admin/module/import/': 'core/back/moduleController.import',
+    '/admin/module/import/': 'core/back/moduleImportController.import',
     '/admin/module/import/validation': 'core/back/moduleController.importValidation',
 
 }
