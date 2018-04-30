@@ -710,7 +710,7 @@ getValueFromArray = function (data, element, type) {
                 var date = new Date();
                 var createdAt = date.toISOString();
                 var updatedAt = date.toISOString();
-                var collection = db.collection('api');
+                var collection = db.collection('module_api');
                 var name_key = 'api_key';
                 var data = {'value': apiKey, 'name_key': name_key};
 
