@@ -49,15 +49,14 @@ node app.js
 
 - CONFIGURATION
 
-     [1]Configure and run a mongodb instance ( the default is  host: 'localhost', port: 27017)
+     [1] Configure and run a mongodb instance ( the default is  host: 'localhost', port: 27017)
 
-     [2]Create a mongoDb database with name ymple
+     [2] Create a mongoDb database with name ymple
 
-     [3] Go to http://localhost:1338/install
+     [3] Default login credential : admin@admin.com / admin
 
-     [4] Default login credential : admin@admin.com / admin
+     [4] Go to http://localhost:1338/install
 
-     node app.js
 
 - FRONT END
 
@@ -75,8 +74,6 @@ Community - Contributing
 --------
 
 If you want to contribute / ask question , you can use Gitter link or create one issue in the project
-
-The branch to request PR is:  1.1.1
 
 ### [Gitter](https://gitter.im/Ymple/ymple-commerce)
 
