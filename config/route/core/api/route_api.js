@@ -3,6 +3,9 @@ module.exports.routes = {
 
     'GET /v0/api/product':'core/api/ApiController.product',
 
+    'GET /v0/api/category':'core/api/ApiController.category',
+
+
     'POST /api/module/update': 'core/api/ModuleController.update',
 
     'POST /product/save_image/:idProduct': 'core/api/UploadController.saveImageProduct',

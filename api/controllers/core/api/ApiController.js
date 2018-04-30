@@ -13,41 +13,38 @@ module.exports = {
 
     test: function (req, res) {
 
-
         var data = {'data':'test'};
-
         return res.ok(data);
-
     },
-
 
     // return a json containing all the product
     product: function ( req, res){
 
         CoreReadDbService.getProductList().then(function (data) {
 
-            console.log('return full product list ', data);
-
-            var result = {};
-
-            //result.products = data;
-
-            //result.templateToInclude = 'product_list';
-            //result.pathToInclude = '../product/list.ejs';
-            //return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-
+            console.log('ApiController - product', data);
 
             return res.json(data);
 
         });
 
+    },
+
+
+    category: function ( req, res){
+
+        CoreReadDbService.getCategoryList().then(function (data) {
+
+            console.log('ApiController - category ', data);
+
+            return res.json(data);
+
+        });
+
+    },
 
 
 
 
-
-
-    }
 
 }
