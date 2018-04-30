@@ -49,15 +49,14 @@ node app.js
 
 - CONFIGURATION
 
-     [1]Configure and run a mongodb instance ( the default is  host: 'localhost', port: 27017)
+     [1] Configure and run a mongodb instance ( the default is  host: 'localhost', port: 27017)
 
-     [2]Create a mongoDb database with name ymple
+     [2] Create a mongoDb database with name ymple
 
-     [3] Go to http://localhost:1338/install
+     [3] Default login credential : admin@admin.com / admin
 
-     [4] Default login credential : admin@admin.com / admin
+     [4] Go to http://localhost:1338/install
 
-     node app.js
 
 - FRONT END
 
