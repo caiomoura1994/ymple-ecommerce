@@ -1,5 +1,5 @@
 /**
- * Admin/productController
+ * ModuleController
  *
  * @description :: Server-side logic for managing admin/products
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
@@ -18,51 +18,42 @@ var _ = require('underscore');
 module.exports = {
 
 
-
-
-
-
     importValidation: function (req, res) {
 
         console.info('importValidation');
         console.info('req', req.body);
 
-
         // check that the creation of the module is complete
         // check that the content of zip module file is proper
         // copy the modules file and add in configuration the new module
 
+        let result = {}
 
-        if (req && req.body && req.body.name) {
-            var data = {};
-
+        if (req) {
+            let data = {};
             data = req.body;
 
-            CoreInsertDbService.insertProduct(data);
+            //CoreInsertDbService.insertProduct(data);
+            //CoreInsertDbService.incrementId('product');
 
-            CoreInsertDbService.incrementId('product');
+            insertRecordNewModule();
 
-            var result = {};
+            // insert the module new line record based on the file configuration of the new module
 
+            result = {};
             result.templateToInclude = 'productCreationOk';
-            result.pathToInclude = '../module/valid.ejs';
+            result.pathToInclude = '../module/import/valid.ejs';
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
-            //console.log('productController - productNewValidation - req.body', data);
-
-
         }
         else {
-            var result = {};
+            result = {};
             result.templateToInclude = 'productCreationKo';
             result.pathToInclude = '../module/import/not-valid.ejs';
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
         }
     },
-
-
-
 
 
     manage: function (req, res) {
@@ -206,19 +197,18 @@ module.exports = {
                 return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
 
 
-
             }
             else if (nameModule == "theme") {
 
 
                 let collection = "module_theme";
-                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
+                returnListModuleAndDisplayPage(collection, result, res, pathTemplateBackCore);
 
             }
             else if (nameModule == "payment") {
 
                 let collection = "module_payment";
-                returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore);
+                returnListModuleAndDisplayPage(collection, result, res, pathTemplateBackCore);
             }
 
         }
@@ -329,19 +319,18 @@ module.exports = {
 
         /*if (allParam.moduleToInstall) {
 
-            var moduleToInstall = allParam.moduleToInstall;
+         var moduleToInstall = allParam.moduleToInstall;
 
-            console.log('ModuleController - install - moduleToInstall', moduleToInstall);
+         console.log('ModuleController - install - moduleToInstall', moduleToInstall);
 
-            CoreInsertDbService.installAndActiveCoreModule(moduleToInstall);// we add a line to the module table
+         CoreInsertDbService.installAndActiveCoreModule(moduleToInstall);// we add a line to the module table
 
-            var result = {};
-            result.nameModule = moduleToInstall;
-            result.templateToInclude = 'installModuleDone';
-            result.pathToInclude = '../module/installModuleDone.ejs';
-            output = res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-        }*/
-
+         var result = {};
+         result.nameModule = moduleToInstall;
+         result.templateToInclude = 'installModuleDone';
+         result.pathToInclude = '../module/installModuleDone.ejs';
+         output = res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+         }*/
 
 
         var result = {};
@@ -349,8 +338,6 @@ module.exports = {
         result.templateToInclude = 'installModuleDone';
         result.pathToInclude = '../module/installNew.ejs';
         output = res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-
 
 
         return output;
@@ -598,6 +585,54 @@ module.exports = {
 };
 
 
+// function to read the configuration file of the module
+// insert a record for the category with module name
+function insertRecordNewModule() {
+
+
+// read the file module.json and insert the record in db
+
+    let fileConfigModule = '.tmp/uploads/module/module/config/module.json';
+    var fs = require('fs');
+
+    try {
+
+        let obj = JSON.parse(fs.readFileSync(fileConfigModule, 'utf8'));
+        console.log("ModuleController - obj2", obj);
+
+        let nameModule = obj.name;
+        let categoryModule = obj.category;
+        let collectionName = "module_"+categoryModule;
+
+        var date = new Date();
+        let newDate = date.toISOString();
+
+        let dataToInsertInDb = {
+            "name" : nameModule,
+            "client_id" : "",
+            "client_secret" : "",
+            "mode" : "sandbox",
+            "category" : categoryModule,
+            "createdAt" : newDate,
+            "updatedAt" : newDate,
+            "isActive" : 1,
+            "idModule": 0
+        };
+
+        CoreInsertDbService.udpateModuleConfiguration(collectionName, nameModule, dataToInsertInDb);
+
+
+    }
+    catch (err) {
+
+        console.log("ModuleController - obj err ", err);
+
+    }
+
+
+}
+
+
 function checkIfConfigurationIsInJsonFile(moduleName) {
 
 
@@ -623,8 +658,7 @@ function Urlify(text) {
 };
 
 
-function returnListModuleAndDisplayPage(collection, result,res, pathTemplateBackCore)
-{
+function returnListModuleAndDisplayPage(collection, result, res, pathTemplateBackCore) {
     CoreReadDbService.getListModuleOneCategory(collection).then(function (data) {
 
         console.log('ModuleController - getListModuleOneCategory - module_payment - data', data);
