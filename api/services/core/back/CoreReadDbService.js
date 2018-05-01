@@ -8,6 +8,35 @@ var _ = require('underscore');
 
 
 module.exports = {
+
+
+
+    // return the API token
+    ApiGetToken: function (){
+
+        return new Promise(
+            function (resolve, reject) {
+
+                let nameKey = "api_key";
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+                    var collectionName = "module_api";
+                    var col = db.collection(collectionName);
+                    var data = col.find({name_key: nameKey}).toArray(function (err, data) {
+                        db.close();
+                        console.log('ApiGetToken - data', data);
+                        resolve(data);
+                    });
+                })
+            })
+
+    },
+
+
+
+
     sendAlertEmail: function () {
         var mailOptions = {
             from: sails.config.project.nodemailer.sender, // sender address
