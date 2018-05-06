@@ -16,23 +16,36 @@ module.exports = {
 
         var api_key = '';
 
-        if (req.query.api_key) {
-            var apiKey = req.query.api_key;
-
-            console.log('apiToken - apiKey', apiKey);
-        }
-
         var data = {};
 
 
         data.pathToInclude = '../mobile/api-token.ejs';
-        data.api_key = apiKey;
+
+        if (req.query.api_key) {
+            var apiKey = req.query.api_key;
+
+            console.log('apiToken - apiKey', apiKey);
+            data.api_key = apiKey;
+            return res.view(pathTemplateBackCore + 'commun-back/main.ejs', data);
 
 
-        return res.view(pathTemplateBackCore + 'commun-back/main.ejs', data);
+        } else {
+
+            // retrieve the existing token from database
+
+            CoreReadDbService.ApiGetToken().then(function (tokenFromDb) {
+
+                data.api_key = tokenFromDb[0].value;
+
+                return res.view(pathTemplateBackCore + 'commun-back/main.ejs', data);
 
 
-        return res.ok('ok pour api token ');
+            });
+
+
+        }
+
+
 
     },
 
@@ -111,7 +124,7 @@ module.exports = {
                     console.log('data configuration paypal', configurationModule);
 
                     // in this case the configuration paypal is missing
-                    if (typeof configurationModule[0] == "undefined"){
+                    if (typeof configurationModule[0] == "undefined") {
 
                         var url = '/?error_configuration_paypal';
                         return res.redirect(url);
