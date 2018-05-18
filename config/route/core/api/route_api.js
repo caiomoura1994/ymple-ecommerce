@@ -5,6 +5,8 @@ module.exports.routes = {
 
     'GET /v0/api/category':'core/api/ApiController.category',
 
+    'GET /v0/api/module':'core/api/ApiController.module',
+
 
     'POST /api/module/update': 'core/api/ModuleController.update',
 

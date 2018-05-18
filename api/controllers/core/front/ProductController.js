@@ -5,12 +5,12 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var async = require('async');
+const async = require('async');
+const pathToService = '../../../services/core/';
+const CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
+const CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
+const commonService = require(pathToService + 'common/InstallService');
 
-var pathToService = '../../../services/core/';
-
-var CoreReadDbService = require(pathToService + 'back/CoreReadDbService');
-var CoreInsertDbService = require(pathToService + 'back/CoreInsertDbService');
 
 var pathTemplateFrontCore = sails.config.globals.templatePathFrontCore;
 
@@ -45,13 +45,12 @@ module.exports = {
         var productId = req.params.id;
 
 
-
         CoreReadDbService.getProductItem(productId).then(function (data) {
 
             var result = {};
 
-            if (data){
-            data.description = Urlify(data.description);
+            if (data) {
+                data.description = Urlify(data.description);
             }
             result.cart = req.session.cart;
             result.product = data;
@@ -62,29 +61,46 @@ module.exports = {
     },
 
     list: function (req, res) {
-        var result = {
-            user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
-        };
 
-        var query = {
-            isSelling: true
-        }
+        let checkDbMongo = 0;
 
-        if (req.query.name) {
-            // query.name = new RegExp('/\s?[^a-z0-9\_]'+req.query.name+'[^a-z0-9\_]/i', 'g', 'gi');
-            query.name = new RegExp(req.query.name);
-            query.name = req.query.name;
-            console.info('productController - query.name', query.name);
-            product_query = req.query.name;
-        }
-        else {
-            product_query = ''; //default value, return all the product
-        }
+        commonService.checkDbMongo(req, res).then(function (checkDbMongo) {
 
+            console.log("ProductController - list - check mongodb instance - checkDbMongo", checkDbMongo);
 
-        CoreReadDbService.getProductList().then(function (products) {
+            if (checkDbMongo == 0 || typeof checkDbMongo == "undefined") {
 
-                console.log('return full product list ', products);
+                let data = {"error": "mongodb connexion not possible"};
+
+                returnErrorPage(req, res);
+
+                return res.json(data);
+            }
+            else {
+
+                console.log("ProductController - list - checkDbMongo ", checkDbMongo);
+
+                var result = {
+                    user: (req.session.hasOwnProperty('user')) ? req.session.user : undefined
+                };
+
+                var query = {
+                    isSelling: true
+                }
+
+                if (req.query.name) {
+                    // query.name = new RegExp('/\s?[^a-z0-9\_]'+req.query.name+'[^a-z0-9\_]/i', 'g', 'gi');
+                    query.name = new RegExp(req.query.name);
+                    query.name = req.query.name;
+                    console.info('productController - query.name', query.name);
+                    product_query = req.query.name;
+                }
+                else {
+                    product_query = ''; //default value, return all the product
+                }
+                CoreReadDbService.getProductList().then(function (products) {
+
+                    console.log('return full product list ', products);
 
 
                     // check if the image is available
@@ -119,21 +135,25 @@ module.exports = {
                     console.info('productController products', products)
 
 
-                var newIdProduct = CoreReadDbService.getCategoryList().then(function (categoryList) {
+                    var newIdProduct = CoreReadDbService.getCategoryList().then(function (categoryList) {
 
-                    console.log('promise return value categoryList:', categoryList);
-                    result.categoryList = categoryList;
+                        console.log('promise return value categoryList:', categoryList);
+                        result.categoryList = categoryList;
 
-                    result.query = req.query.name;
-                    result.showSearchMenu = 1;
+                        result.query = req.query.name;
+                        result.showSearchMenu = 1;
 
 
-                    return res.view(theme + 'index.ejs', result);
+                        return res.view(theme + 'index.ejs', result);
+
+                    });
 
                 });
 
-            });
+            }
+            ;
 
+        })
     },
 
     status: function (req, res) {
@@ -207,3 +227,25 @@ function Urlify(text) {
         return '<a href="' + url + '" target="_blank">' + url + '</a>';
     });
 };
+
+function returnErrorPage(req, res) {
+
+
+    //console.log('is logged', CoreLoginService.isLogged());
+
+    // if (CoreLoginService.isLogged(req, res)) {
+    let result = {};
+    //let pathTemplateBackCore = sails.config.globals.templatePathBackCore;
+
+
+    result.templateToInclude = 'admin';
+    result.pathToInclude = '../admin';
+
+    return res.view('core/install/error-mongodb.ejs', result);
+}
+
+
+
+
+
+
