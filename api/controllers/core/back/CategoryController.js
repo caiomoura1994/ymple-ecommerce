@@ -115,7 +115,7 @@ module.exports = {
             var categoryId = req.params.id;
 
             CoreDeleteDbService.deleteCategory(categoryId);
-            result.templateToInclude = 'category_delete_ok';
+            result.templateToInclude = 'yes';
             result.pathToInclude = '../category/delete-ok.ejs';
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
         }
@@ -172,13 +172,16 @@ module.exports = {
             data = req.body;
 
             console.log('CategoryController - createValidation', data);
-
-            CoreInsertDbService.insertCategory(data);
-            CoreInsertDbService.incrementId('category');
+            CoreInsertDbService.updateCategory(data);
 
             var result = {};
             result.templateToInclude = 'categoryCreationOk';
+
+
+
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
+
+
         }
         else {
             var result = {};

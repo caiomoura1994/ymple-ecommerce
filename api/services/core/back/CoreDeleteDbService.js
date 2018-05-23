@@ -59,11 +59,9 @@ getValueFromArray = function (data, element, type) {
             console.log('coredeleteservice - category id', categoryId);
 
             MongoClient.connect(urlConnection).then(function (db) {
-
                 if (sails.config.demoMode != 1) {
-
                     var collection = db.collection('category');
-                    collection.deleteOne({_id: ObjectId(categoryId)}, function (err, result) {
+                    collection.deleteOne({idCategory: parseInt(categoryId)}, function (err, result) {
 
                         console.log(err);
                         console.log('result', result);

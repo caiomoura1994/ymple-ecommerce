@@ -35,14 +35,14 @@
 
                 <% users.forEach(function(user) { %>
 
-                <tr data-id="<%= 'order.id' %>">
+                <tr data-id="-">
                     <td><%= '-' %></td>
                     <td><%= user.createdAt %> </td> <!--|date('Y-m-d', '-540') %></td-->
                     <td><%= user.name %></td>
                     <td><%= user.email %></td>
                     <td><%= user.phone %></td>
                     <td><%= user.address %></td>
-                    <td><%= user.orders.length %></td>
+                    <td>-</td>
                     <td>
                         <% if (user.permission == 'ADMIN') { %>
                         <span class="badge badge-primary"><%= __('manager') %></span>
@@ -57,9 +57,9 @@
                         <% }  %>
                     </td>
                     <td>
-                        <a href="/admin/customer/item/<%= user.id %>" class="btn btn-xs btn-default">DETAILS</a>
+                        <a href="/admin/customer/item/<%= user.name %>" class="btn btn-xs btn-default">DETAILS</a>
 
-                        <a href="/admin/customer/edit/<%= user.id %>" class="btn btn-xs btn-danger">EDIT</a>
+                        <a href="/admin/customer/edit/<%= user.name %>" class="btn btn-xs btn-danger">EDIT</a>
 
                     </td>
                 </tr>

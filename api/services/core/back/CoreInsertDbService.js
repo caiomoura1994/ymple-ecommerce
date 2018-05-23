@@ -414,6 +414,72 @@ getValueFromArray = function (data, element, type) {
         },
 
 
+        updateCategory: function (data) { // Insert a category in table category
+
+            var MongoClient = require('mongodb').MongoClient;
+            console.log('InsertDbService - url connexion ', urlConnection);
+            MongoClient.connect(urlConnection).then(function (db) {
+
+                var fieldName = "category";
+                var col = db.collection('counter');
+                col.find({id: fieldName}).toArray(function (err, docs) {
+                    //db.close();
+                    if (docs[0]) {
+
+                        console.log('seq', docs[0].seq);
+                    }
+                    else {
+                        console.log('err', err);
+                    }
+
+
+                    var newIdCategory = docs[0].seq;
+                    var date = new Date();
+                    var createdAt = date.toISOString();
+                    var updatedAt = date.toISOString();
+                    let idCategory = data.idCategory;
+
+                    //var idCategory = parseInt(data.idCategory);
+                    var name = data.name;
+                    var description = data.description;
+                    var tag = data.tag;
+
+                    var collectionName = "category";
+                    var col = db.collection(collectionName);
+
+                    var dataToInsert = {
+                        name: name,
+                        idCategory: idCategory,
+                        description: description,
+                        createdAt: createdAt,
+                        updatedAt: updatedAt
+                    }
+                    console.log('CoreInsertDbService - updateCategory - dataToInsert', dataToInsert);
+                    var collection = db.collection('category');
+
+                    if (sails.config.demoMode != 1) {
+
+                        //collection.insert();
+                        collection.update(
+                            {idCategory: parseInt(data.idCategory)},
+                            {$set: dataToInsert},function (err, result) {
+
+                                if (err) {
+                                    console.log("CoreInsertDbService - err;
+                                }
+                                else {
+                                    //console.log(result);
+                                }
+                            });
+
+
+
+                    }
+                });
+
+            });
+        },
+
         insertCategory: function (data) { // Insert a category in table category
 
             var MongoClient = require('mongodb').MongoClient;

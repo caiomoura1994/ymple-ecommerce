@@ -4,55 +4,38 @@
  * @description :: Server-side logic for managing admins
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-var CoreReadDbService = require('../../../services/core/back/CoreReadDbService');
-var CoreInsertDbService = require('../../../services/core/back/CoreInsertDbService');
-
-var CoreLoginService = require('../../../services/core/back/CoreLoginService');
-
-var pathTemplateBackCore = sails.config.globals.templatePathBackCore;
+const CoreReadDbService = require('../../../services/core/back/CoreReadDbService');
+const CoreInsertDbService = require('../../../services/core/back/CoreInsertDbService');
+const CoreLoginService = require('../../../services/core/back/CoreLoginService');
+const pathTemplateBackCore = sails.config.globals.templatePathBackCore;
 
 module.exports = {
 
     loginValidation: function (req, res) {
 
-
         var isLogged = false;
 
         if (req.body && req.body.email && req.body.password) {
 
-
             let email = req.body.email;
             let password = req.body.password;
             isLogged = CoreLoginService.login(req, res, email, password);
-
             console.log('loginValidation - req', req.body);
-
             req.session.admin = {};
-
             req.session.admin.email = email;
-
             req.session.admin.isLogged = 1;
 
-
-            // save admin user information in session
             CoreReadDbService.getUserItemByEmail(email).then(function (user) {
-
 
                 console.log('AdminController - loginValidation - user ', user);
 
                 req.session.admin.user = user;
-
                 if (isLogged) {
-
                     var result = {};
-
                     result.templateToInclude = 'admin';
                     result.pathToInclude = '../admin';
-
                     return res.view(pathTemplateBackCore + 'admin/new-template.ejs', result);
-
-                }
-                else {
+                } else {
                     return res.redirect('/admin');
                 }
 
@@ -79,20 +62,11 @@ module.exports = {
 
         console.log('login');
         var result = {};
-
         result.templateToInclude = 'admin';
         result.pathToInclude = '../admin';
-
-        var result;
+        //var result;
 
         return res.view(pathTemplateBackCore + 'admin/login.ejs', result);
-
-        // return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-//        return res.ok('ok');
-
-        // return res.view('back/admin.ejs', result);
-
     },
 
     index: function (req, res) {

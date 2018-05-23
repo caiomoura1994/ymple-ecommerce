@@ -82,24 +82,18 @@
                         <td>
                             <button class="btn btn-xs btn-success" button-action="status"> <%= __('sale') %></button>
                         </td>
-                        <% }  else { %>
-                                 
+                        <% }  else { %>         
                         <td>
-
-
                             <input id="toggle-product-<%= product.id %>" type="checkbox" checked data-toggle="toggle" >
-
                         </td>
                         <% } %>
-                        
                         </td>
-
                         <td>
-                            <a href="/admin/category/edit/<%= product.id %>" class="btn btn-xs btn-primary"
+                            <a href="/admin/category/edit/<%= product.idCategory %>" class="btn btn-xs btn-primary"
                                button-action="edit">EDIT</a>
                         </td>
                         <td>
-                            <a href="/admin/category/delete/<%= product.id %>" class="btn btn-xs btn-danger"
+                            <a href="/admin/category/delete/<%= product.idCategory %>" class="btn btn-xs btn-danger"
                                button-action="delete">DELETE</a>
                         </td>
                     </tr>
@@ -113,9 +107,6 @@
                     <ul class="pagination">
                         <button><a class="btn btn-sm" href="/admin/category">&laquo;</a></button>
                             <button><a class="btn btn-sm" href="/admin/category">&raquo;</a></button>
-
-
-
                     </ul>
                 </div>
             </div>

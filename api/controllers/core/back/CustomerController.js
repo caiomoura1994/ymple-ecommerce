@@ -7,14 +7,16 @@
  */
 
 var async = require('async');
-var pathTemplateBackCore =  sails.config.globals.templatePathBackCore;
+var pathTemplateBackCore = sails.config.globals.templatePathBackCore;
+var CoreReadDbService = require('../../../services/core/back/CoreReadDbService');
 
 
 module.exports = {
 
 
-
     edit: function (req, res) {
+
+        console.log("CustomerController - edit ");
         var result = {};
         var skip = 0;
         var page = 1;
@@ -30,53 +32,22 @@ module.exports = {
             limit: 10,
             sort: 'createdAt DESC'
         };
-
         result.page = page;
-
         result.order = {};
 
+        var name = req.params.idCustomer;
 
-        // we check if the session id user is set.
+        CoreReadDbService.getUserItemByName(name).then(function (user) {
 
+            console.log("CustomerController - edit - user", user);
 
-        var idCustomer = req.params.idCustomer;
-
-
-
-
-
-        async.waterfall([
-
-            function GetUserAndOrders(next) {
-
-                console.info('user id ', idCustomer);
-
-
-                User.findOne(idCustomer).populate('orders', queryOptions).exec(function (err, user) {
-
-
-                    if (err) return next(err);
-                    if (!user) return next('NO_USER_FOUND');
-
-                    result.user = user;
-                    result.cart = req.session.cart;
-                    result.orders = user.orders;
-
-                    return next(null);
-                });
-            }
-        ], function (err) {
-            if (err) return res.serverError(err);
-
-
-
-            result.templateToInclude = 'customer_edit';
+            result.user = user;
+            result.cart = req.session.cart;
+            //result.orders = user.orders;
+            result.templateToInclude = 'yes';
             result.pathTemplateBackCore = '../customer/edit.ejs';
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
-
-
         });
     },
 
@@ -99,47 +70,21 @@ module.exports = {
         };
 
         result.page = page;
-
         result.order = {};
-
-
         // we check if the session id user is set.
+        var name = req.params.idCustomer;
 
 
-        var idCustomer = req.params.idCustomer;
+        CoreReadDbService.getUserItemByName(name).then(function (user) {
 
+            result.user = user;
+            result.cart = req.session.cart;
+            result.orders = user.orders;
 
-
-
-
-        async.waterfall([
-
-            function GetUserAndOrders(next) {
-
-                console.info('user id ', idCustomer);
-
-
-                User.findOne(idCustomer).populate('orders', queryOptions).exec(function (err, user) {
-                    if (err) return next(err);
-                    if (!user) return next('NO_USER_FOUND');
-
-                    result.user = user;
-                    result.cart = req.session.cart;
-                    result.orders = user.orders;
-
-                    return next(null);
-                });
-            }
-        ], function (err) {
-            if (err) return res.serverError(err);
-
-
-
-            result.templateToInclude = 'customer_item';
+            result.templateToInclude = 'yes';
             result.pathTemplateBackCore = '../customer/item.ejs';
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);
-
 
 
         });
@@ -167,37 +112,11 @@ module.exports = {
 
         result.page = page;
 
-        async.waterfall([
-            function GetTotalCount(next) {
-                User.count(function (err, num) {
-                    if (err) return next(err);
+        CoreReadDbService.allUser().then(function (userList) {
 
-                    result.pages = [];
-
-                    for (var i = 0, count = parseInt(num / queryOptions.limit); i <= count; i++) {
-                        result.pages.push(i + 1);
-                    }
-
-                    return next(null);
-                });
-            },
-
-            function GetUsers(next) {
-                User.find(queryOptions).populate('orders').exec(function (err, users) {
-                    if (err) return next(err);
-
-                    result.users = users;
-
-                    return next(null);
-                });
-            }
-        ], function (err) {
-            if (err) return res.serverError(err);
-
-
-            // we add the name of the template to include
-
-            result.templateToInclude = 'customer_list';
+            console.log("CustomerController - user - userList", userList);
+            result.users = userList;
+            result.templateToInclude = 'yes';
             result.pathToInclude = '../customer/list.ejs';
 
             return res.view(pathTemplateBackCore + 'commun-back/main.ejs', result);

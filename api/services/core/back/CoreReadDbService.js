@@ -139,7 +139,7 @@ module.exports = {
                 MongoClient.connect(url, function (err, db) {
                     var collectionName = "category";
                     var col = db.collection(collectionName);
-                    var data = col.find({_id: ObjectId(idCategory)}).toArray(function (err, data) {
+                    var data = col.find({idCategory: parseInt(idCategory)}).toArray(function (err, data) {
                         db.close();
                         console.log('getCategoryItem', data);
                         resolve(data);//docs[0].name.toString()); // returns to the function that calls the callback
@@ -329,6 +329,73 @@ module.exports = {
         return promise;
     },
 
+    allUser: function (email) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "user";
+
+                console.log('getUserItem - email', email);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    var findQuery = {};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+
+                        console.log(err);
+                        console.log('getUserItem - data', data);
+
+                        resolve(data);
+                    })
+                })
+            })
+
+        return promise;
+    },
+
+
+    getUserItemByName: function (name) { // return the data and item information about one order
+
+        var promise = new Promise(
+            function (resolve, reject) {
+
+                var collection = "user";
+
+                console.log('getUserItem - name', name);
+
+                var MongoClient = require('mongodb').MongoClient;
+
+                MongoClient.connect(url, function (err, db) {
+
+                    var col = db.collection(collection);
+
+                    var findQuery = {"name": name};
+
+                    col.find(
+                        findQuery
+                    ).toArray(function (err, data) {
+                        //db.close();
+                        console.log(err);
+
+                        console.log('getUserItem - data', data[0]);
+
+                        var output = data[0];
+
+                        resolve(output);
+                    })
+                })
+            })
+
+        return promise;
+    },
 
     getUserItemByEmail: function (email) { // return the data and item information about one order
 
@@ -364,7 +431,6 @@ module.exports = {
 
         return promise;
     },
-
 
 
     getProductItem: function (idProduct) { // return the data and item information about one order
