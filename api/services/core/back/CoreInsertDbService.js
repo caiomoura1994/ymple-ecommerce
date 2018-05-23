@@ -465,7 +465,7 @@ getValueFromArray = function (data, element, type) {
                             {$set: dataToInsert},function (err, result) {
 
                                 if (err) {
-                                    console.log("CoreInsertDbService - err;
+                                    console.log("CoreInsertDbService - err", err);
                                 }
                                 else {
                                     //console.log(result);
